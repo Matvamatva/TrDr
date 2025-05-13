@@ -12,6 +12,7 @@
   <name>TrDr</name>
 
   <properties>
+    <output>C:\Users\CYN\Desktop\server\local499\plugins\TrDr.jar</output>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -32,6 +33,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.5.3</version>
+        <configuration>
+          <outputFile>${output}</outputFile>
+        </configuration>
         <executions>
           <execution>
             <phase>package</phase>
