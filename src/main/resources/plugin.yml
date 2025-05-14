@@ -8,5 +8,4 @@ authors: [Matva, Drac0shka]
 description: Economy plugin for server TrDr
 website: later
 commands:
-  setmoney: {}
-  getmoney: {}
+  debughelp: {}

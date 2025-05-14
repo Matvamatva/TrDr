@@ -8,9 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static org.bukkit.Bukkit.getLogger;
+
 
 public class dbConnect {
-    private static String DBaddress = "";
+    private static String DBaddress = "jdbc:sqlite:plugins/TrDr/Users.db";
     public static Connection conn;
     public static Statement statmt;
     public static ResultSet resSet;
@@ -22,23 +24,24 @@ public class dbConnect {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(DBaddress);
 
-            main.getInstance().getLogger().info("База подключена");
+            getLogger().info("База подключена");
         } catch (SQLException e) {
-            main.getInstance().getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
+            getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
         } catch (ClassNotFoundException e) {
-            main.getInstance().getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error: " + e);
+            getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error: " + e);
         }
+        CreateDB();
     }
 
     // --------Создание таблицы--------
-    public static void CreateDB() {
+    private static void CreateDB() {
         try {
             statmt = conn.createStatement();
-            statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
+            statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'username' TEXT NOT NULL, 'UUID' INTEGER NOT NULL);");
 
-            System.out.println("Таблица users создана или уже существует.");
+            getLogger().info("Таблица users создана или уже существует.");
         } catch (SQLException e) {
-            main.getInstance().getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         }
 
     }
@@ -74,19 +77,19 @@ public class dbConnect {
 
     // --------Закрытие--------
     public static void CloseDB() {
-
         if (conn != null) {
             try {
                 conn.close();
                 statmt.close();
-                resSet.close();
-                main.getInstance().getLogger().info("Соединения закрыты");
+                //resSet.close();
+                getLogger().info("Соединения закрыты");
             } catch (SQLException e) {
-                main.getInstance().getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             }
-
         }
     }
+
+
 
 }
 
