@@ -1,12 +1,8 @@
 package main.database;
 
-import main.main;
+import java.sql.*;
+import java.util.ArrayList;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -44,6 +40,25 @@ public class dbConnect {
             getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         }
 
+
+    }
+
+    public static String getUser(String query, String type) {
+       // ArrayList<String> user = new ArrayList<String>();
+
+        try {
+            resSet = statmt.executeQuery(query);
+            if (type.equalsIgnoreCase("id")) {
+                return String.valueOf(resSet.getInt("id"));
+            } else if (type.equalsIgnoreCase("username")) {
+                return resSet.getString("username");
+            } else if (type.equalsIgnoreCase("UUID")) {
+                return resSet.getString("UUID");
+            }
+        } catch (SQLException e) {
+            getLogger().info("Запрос ResultSet не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        }
+        return "";
     }
 
    /*  --------Заполнение таблицы--------
