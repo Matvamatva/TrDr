@@ -7,8 +7,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import main.database.dbConnect;
 import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.net.HttpHeaders.FROM;
-
 public class onJoin implements Listener {
 
 
@@ -18,10 +16,10 @@ public class onJoin implements Listener {
         Player player = event.getPlayer();
         event.setJoinMessage("");
         player.sendMessage("DEBUG");
-        query.equals("SELECT * FROM 'users' WHERE username = '" + player.getName() + "'");
-        String user = dbConnect.getUser(query, "username");
+        String user = dbConnect.getUser("SELECT * FROM 'users' WHERE username = '" + player.getName() + "'", "username");
         if (!(user.equals(""))) {
             // код на добавление пользователя
         }
+
     }
 }

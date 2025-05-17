@@ -42,7 +42,7 @@ public class dbConnect {
 
 
     }
-
+   //  --------гетЮзер--------
     public static String getUser(String query, String type) {
        // ArrayList<String> user = new ArrayList<String>();
 
@@ -56,10 +56,24 @@ public class dbConnect {
                 return resSet.getString("UUID");
             }
         } catch (SQLException e) {
-            getLogger().info("Запрос ResultSet не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         }
         return "";
     }
+
+
+    //  --------сетЮзер--------
+    public static void setUser(String query) {
+        try {
+            statmt.execute(query);
+        } catch (SQLException e) {
+            getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        }
+
+
+    }
+
+
 
    /*  --------Заполнение таблицы--------
    public static void WriteDB() throws SQLException
