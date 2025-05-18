@@ -9,17 +9,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class onJoin implements Listener {
 
-
-    private static String query;
     @EventHandler
     public void JoinHandler (PlayerJoinEvent event) {
         Player player = event.getPlayer();
         event.setJoinMessage("");
-        player.sendMessage("DEBUG");
-        String user = dbConnect.getUser("SELECT * FROM 'users' WHERE username = '" + player.getName() + "'", "username");
-        if (!(user.equals(""))) {
-            // код на добавление пользователя
+        String user = dbConnect.getUser("SELECT * FROM 'users' WHERE username = '" + dbConnect.escapeSql(player.getName(), event.getPlayer()) + "'", "username");
+        if (user == null) {
+                dbConnect.setUser(String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", dbConnect.escapeSql(player.getName(), event.getPlayer()), String.valueOf(player.getUniqueId())));
+            }
         }
-
-    }
 }

@@ -1,9 +1,8 @@
 package main.database;
 
 import java.sql.*;
-import java.util.ArrayList;
-
-
+import main.main;
+import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getLogger;
 
 
@@ -19,7 +18,6 @@ public class dbConnect {
             conn = null;
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(DBaddress);
-
             getLogger().info("База подключена");
         } catch (SQLException e) {
             getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
@@ -31,48 +29,87 @@ public class dbConnect {
 
     // --------Создание таблицы--------
     private static void CreateDB() {
-        try {
-            statmt = conn.createStatement();
-            statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'username' TEXT NOT NULL, 'UUID' INTEGER NOT NULL);");
-
-            getLogger().info("Таблица users создана или уже существует.");
-        } catch (SQLException e) {
-            getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        if (conn != null) {
+            try {
+                statmt = conn.createStatement();
+                statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'username' TEXT NOT NULL, 'UUID' TEXT NOT NULL);");
+                getLogger().info("Таблица users создана или уже существует.");
+            } catch (SQLException e) {
+                getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            }
         }
-
-
     }
    //  --------гетЮзер--------
     public static String getUser(String query, String type) {
-       // ArrayList<String> user = new ArrayList<String>();
-
-        try {
-            resSet = statmt.executeQuery(query);
-            if (type.equalsIgnoreCase("id")) {
-                return String.valueOf(resSet.getInt("id"));
-            } else if (type.equalsIgnoreCase("username")) {
-                return resSet.getString("username");
-            } else if (type.equalsIgnoreCase("UUID")) {
-                return resSet.getString("UUID");
+        // ArrayList<String> user = new ArrayList<String>();
+        if (conn != null) {
+            try {
+                resSet = statmt.executeQuery(query);
+                for (int i = 1; i <= 10; i++) {
+                    if (type.equalsIgnoreCase("id")) {
+                        return String.valueOf(resSet.getInt("id"));
+                    } else if (type.equalsIgnoreCase("username")) {
+                        return resSet.getString("username");
+                    } else if (type.equalsIgnoreCase("UUID")) {
+                        return resSet.getString("UUID");
+                    }
+                }
+            } catch (SQLException e) {
+                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
-        } catch (SQLException e) {
-            getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         }
         return "";
     }
 
-
     //  --------сетЮзер--------
     public static void setUser(String query) {
-        try {
-            statmt.execute(query);
-        } catch (SQLException e) {
-            getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        if (conn != null) {
+            try {
+                statmt.executeUpdate(query);
+            } catch (SQLException e) {
+                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error:" + e);
+            }
         }
-
-
     }
 
+    // --------Закрытие--------
+    public static void CloseDB() {
+        if (conn != null) {
+            try {
+                conn.close();
+                statmt.close();
+                resSet.close();
+                getLogger().info("Соединения закрыты");
+            } catch (SQLException e) {
+                getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            }
+        }
+    }
+
+    public static String escapeSql(String input, Player player) {
+        if (input == null) {
+            return null;
+        }
+        if (
+                input.contains("'") ||
+                input.contains("\\") ||
+                input.contains("\\n") ||
+                input.contains("\\'") ||
+                input.contains("'\\") ||
+                input.contains("--")
+        ) {
+            player.kickPlayer("Вы используете запрещённый символ в нике");
+            return null;
+        } else {
+            return input;
+        }
+    }
+}
+/*
 
 
    /*  --------Заполнение таблицы--------
@@ -85,7 +122,7 @@ public class dbConnect {
         System.out.println("Таблица заполнена");
     } */
 
-    // -------- Вывод таблицы--------
+// -------- Вывод таблицы--------
    /* public static void ReadDB() throws ClassNotFoundException, SQLException
     {
         resSet = statmt.executeQuery("SELECT * FROM users");
@@ -104,21 +141,50 @@ public class dbConnect {
         System.out.println("Таблица выведена");
     } */
 
-    // --------Закрытие--------
-    public static void CloseDB() {
-        if (conn != null) {
-            try {
-                conn.close();
-                statmt.close();
-                //resSet.close();
-                getLogger().info("Соединения закрыты");
-            } catch (SQLException e) {
-                getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+
+ /*   public static String escapeSql(String x, boolean escapeDoubleQuotes) {
+        int stringLength = x.length();
+        StringBuilder sBuilder = new StringBuilder(x.length() * 11/10);
+        for (int i = 0; i < stringLength; ++i) {
+            char c = x.charAt(i);
+            switch (c) {
+                case 0: // Must be escaped for 'mysql'
+                    sBuilder.append('\\');
+                    sBuilder.append('0');
+                    break;
+                case '\n': // Must be escaped for logs
+                    sBuilder.append('\\');
+                    sBuilder.append('n');
+                    break;
+                case '\r':
+                    sBuilder.append('\\');
+                    sBuilder.append('r');
+                    break;
+                case '\\':
+                    sBuilder.append('\\');
+                    sBuilder.append('\\');
+                    break;
+                case '\'':
+                    sBuilder.append('\\');
+                    sBuilder.append('\'');
+                    break;
+                case '"': // Better safe than sorry
+                    if (escapeDoubleQuotes) {
+                        sBuilder.append('\\');
+                    }
+                    sBuilder.append('"');
+                    break;
+                case '\032': // This gives problems on Win32
+                    sBuilder.append('\\');
+                    sBuilder.append('Z');
+                    break;
+                case '\u00a5':
+                case '\u20a9':
+                    // escape characters interpreted as backslash by mysql
+                    // fall through
+                default:
+                    sBuilder.append(c);
             }
         }
-    }
-
-
-
-}
-
+        return sBuilder.toString();
+    } */

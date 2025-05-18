@@ -12,7 +12,7 @@
   <name>TrDr</name>
 
   <properties>
-    <output>C:\Users\matva\Desktop\TrDr\локалка 499\plugins\TrDr.jar</output>
+    <output>C:\Users\CYN\Desktop\server\local499\plugins\TrDr.jar</output>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -55,6 +55,10 @@
   </build>
 
   <repositories>
+      <repository>
+        <id>glaremasters repo</id>
+        <url>https://repo.glaremasters.me/repository/towny/</url>
+      </repository>
     <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -81,6 +85,12 @@
           <groupId>org.xerial</groupId>
           <artifactId>sqlite-jdbc</artifactId>
           <version>3.49.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.palmergames.bukkit.towny</groupId>
+      <artifactId>towny</artifactId>
+      <version>0.101.1.0</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
