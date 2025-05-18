@@ -82,7 +82,7 @@ public class dbConnect {
             try {
                 conn.close();
                 statmt.close();
-                resSet.close();
+               // resSet.close();
                 getLogger().info("Соединения закрыты");
             } catch (SQLException e) {
                 getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
