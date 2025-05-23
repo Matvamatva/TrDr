@@ -15,7 +15,7 @@ public class onJoin implements Listener {
         event.setJoinMessage("");
         String user = dbConnect.getUser("SELECT * FROM 'users' WHERE username = '" + dbConnect.escapeSql(player.getName(), event.getPlayer()) + "'", "username");
         if (user == null) {
-                dbConnect.setUser(String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", dbConnect.escapeSql(player.getName(), event.getPlayer()), String.valueOf(player.getUniqueId())));
-            }
+            dbConnect.setUser(String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", dbConnect.escapeSql(player.getName(), event.getPlayer()), String.valueOf(player.getUniqueId())));
         }
+    }
 }

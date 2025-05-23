@@ -32,7 +32,19 @@ public class dbConnect {
         if (conn != null) {
             try {
                 statmt = conn.createStatement();
-                statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'username' TEXT NOT NULL, 'UUID' TEXT NOT NULL);");
+                statmt.execute("CREATE TABLE " +
+                        "if not exists 'users' " +
+                        "(" +
+                            "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            "'username' TEXT NOT NULL," +
+                            "'UUID' TEXT NOT NULL," +
+                            "'PESO' INTEGER NOT NULL," +
+                            "'EURO' INTEGER NOT NULL," +
+                            "'REAL' INTEGER NOT NULL," +
+                            "'YUAN' INTEGER NOT NULL," +
+                            "'FRANK' INTEGER NOT NULL," +
+                            "'RUPEE' INTEGER NOT NULL," +
+                        ")");
                 getLogger().info("Таблица users создана или уже существует.");
             } catch (SQLException e) {
                 getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
@@ -45,15 +57,24 @@ public class dbConnect {
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                for (int i = 1; i <= 10; i++) {
+              //  for (int i = 1; true; i++) {
                     if (type.equalsIgnoreCase("id")) {
                         return String.valueOf(resSet.getInt("id"));
                     } else if (type.equalsIgnoreCase("username")) {
                         return resSet.getString("username");
                     } else if (type.equalsIgnoreCase("UUID")) {
                         return resSet.getString("UUID");
+                    } else if (
+                            type.equalsIgnoreCase("PESO") ||
+                            type.equalsIgnoreCase("EURO") ||
+                            type.equalsIgnoreCase("REAL") ||
+                            type.equalsIgnoreCase("YUAN") ||
+                            type.equalsIgnoreCase("FRANK") ||
+                            type.equalsIgnoreCase("RUPEE")
+                            ) {
+                        return resSet.getString(type);
                     }
-                }
+               // }
             } catch (SQLException e) {
                 getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
