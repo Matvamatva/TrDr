@@ -4,12 +4,12 @@ package main;
 
 import main.commands.debugCommand;
 import main.database.dbConnect;
+import main.events.onJoin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import static java.lang.Thread.sleep;
 
+import static java.lang.Thread.sleep;
 
 
 public final class main extends JavaPlugin {
@@ -19,13 +19,12 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("------------------------------------------------------");
+        getLogger().info("--------------------------TRDR----------------------------");
         instance = this;
         dbConnect.Conn();
 //----------------COMMANDS---------------------------
         new debugCommand();
 //----------------/COMMANDS---------------------------
-
 
 
 //----------------EVENT---------------------------
@@ -35,11 +34,8 @@ public final class main extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-        dbConnect.CloseDB();
+    public void onDisable() {dbConnect.CloseDB();
     }
 
-    public static main getInstance() {
-        return instance;
-    }
+    public static main getInstance() { return instance;}
 }

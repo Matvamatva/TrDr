@@ -14,5 +14,7 @@ public class debugCommand extends abstractCommand {
 
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
+        Player player = (Player) sender;
+        player.sendMessage("Команда работает?");
     }
 }

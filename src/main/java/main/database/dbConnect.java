@@ -1,10 +1,11 @@
 package main.database;
 
+import java.io.IOException;
 import java.sql.*;
 import main.main;
 import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getLogger;
-
+import java.nio.file.*;
 
 public class dbConnect {
     private static String DBaddress = "jdbc:sqlite:plugins/TrDr/Users.db";
@@ -14,11 +15,19 @@ public class dbConnect {
 
     // --------ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ--------
     public static void Conn() {
+        Path workPath = Paths.get("./plugins/TrDr");
+        if (!(Files.exists(workPath))) {
+            try {
+                Files.createDirectories(workPath);
+            } catch (IOException e) {
+                getLogger().info("Не удалось создать папку." + e);
+            }
+        }
         try {
             conn = null;
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(DBaddress);
-            getLogger().info("База подключена");
+            getLogger().info("База данных подключена");
         } catch (SQLException e) {
             getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
         } catch (ClassNotFoundException e) {
@@ -38,12 +47,12 @@ public class dbConnect {
                             "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
                             "'username' TEXT NOT NULL," +
                             "'UUID' TEXT NOT NULL," +
-                            "'PESO' INTEGER NOT NULL," +
-                            "'EURO' INTEGER NOT NULL," +
-                            "'REAL' INTEGER NOT NULL," +
-                            "'YUAN' INTEGER NOT NULL," +
-                            "'FRANK' INTEGER NOT NULL," +
-                            "'RUPEE' INTEGER NOT NULL," +
+                            "'PESO' INTEGER DEFAULT 0, " +
+                            "'EURO' INTEGER DEFAULT 0," +
+                            "'REAL' INTEGER DEFAULT 0," +
+                            "'YUAN' INTEGER DEFAULT 0," +
+                            "'FRANK' INTEGER DEFAULT 0," +
+                            "'RUPEE' INTEGER DEFAULT 0" +
                         ")");
                 getLogger().info("Таблица users создана или уже существует.");
             } catch (SQLException e) {
@@ -52,8 +61,9 @@ public class dbConnect {
         }
     }
    //  --------гетЮзер--------
-    public static String getUser(String query, String type) {
+    public static String getUser(String nickname, String type) {
         // ArrayList<String> user = new ArrayList<String>();
+        String query = "SELECT * FROM 'users' WHERE username = '" + nickname + "'";
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
@@ -85,7 +95,13 @@ public class dbConnect {
     }
 
     //  --------сетЮзер--------
-    public static void setUser(String query) {
+    public static void setUser(String nickname, String type, String value) {
+        String query = "";
+        if (type.equals("newuser")){
+            query = String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", nickname, value);
+        } else {
+            query = String.format("UPDATE 'users' SET %s = %s WHERE username = '%s'", type, value, nickname);
+        }
         if (conn != null) {
             try {
                 statmt.executeUpdate(query);
@@ -111,7 +127,8 @@ public class dbConnect {
         }
     }
 
-    public static String escapeSql(String input, Player player) {
+    public static String escapeSql(Player player) {
+        String input = player.getName();
         if (input == null) {
             return null;
         }

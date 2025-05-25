@@ -2,6 +2,7 @@ package main.commands;
 
 import main.main;
 import org.bukkit.command.*;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,12 @@ public abstract class abstractCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        execute(sender, label, args);
+        if (sender instanceof Player) {
+            execute(sender, label, args);
+        } else {
+            sender.sendMessage("Команды может отправлять только игрок");
+        }
+
         return true;
     }
 
