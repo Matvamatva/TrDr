@@ -97,7 +97,7 @@ public class dbConnect {
     //  --------сетЮзер--------
     public static void setUser(String nickname, String type, String value) {
         String query = "";
-        if (type.equals("newuser")){
+        if (type.equals("newuser")) {
             query = String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", nickname, value);
         } else {
             query = String.format("UPDATE 'users' SET %s = %s WHERE username = '%s'", type, value, nickname);

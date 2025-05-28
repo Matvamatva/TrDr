@@ -2,13 +2,9 @@ package main.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.permission.Permission;
 
-public class debugCommand extends abstractCommand {
-    public debugCommand() {
+public class command_DebugCommand extends abstractCommand {
+    public command_DebugCommand() {
         super("debughelp");
     }
 

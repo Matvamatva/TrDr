@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import main.database.dbConnect;
 
-public class onJoin implements Listener {
+public class event_OnJoin implements Listener {
 
     @EventHandler
     public void JoinHandler (PlayerJoinEvent event) {
