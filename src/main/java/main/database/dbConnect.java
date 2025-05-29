@@ -44,19 +44,36 @@ public class dbConnect {
                 statmt.execute("CREATE TABLE " +
                         "if not exists 'users' " +
                         "(" +
-                            "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
-                            "'username' TEXT NOT NULL," +
-                            "'UUID' TEXT NOT NULL," +
-                            "'PESO' INTEGER DEFAULT 0, " +
-                            "'EURO' INTEGER DEFAULT 0," +
-                            "'REAL' INTEGER DEFAULT 0," +
-                            "'YUAN' INTEGER DEFAULT 0," +
-                            "'FRANK' INTEGER DEFAULT 0," +
-                            "'RUPEE' INTEGER DEFAULT 0" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'username' TEXT NOT NULL," +
+                        "'UUID' TEXT NOT NULL," +
+                        "'contry_perm3' TEXT DEFAULT 'none'," +
+                        "'contry_perm2' TEXT DEFAULT 'none'," +
+                        "'contry_perm1' TEXT DEFAULT 'none'," +
+                        "'PESO' INTEGER DEFAULT 0, " +
+                        "'EURO' INTEGER DEFAULT 0," +
+                        "'REAL' INTEGER DEFAULT 0," +
+                        "'YUAN' INTEGER DEFAULT 0," +
+                        "'FRANK' INTEGER DEFAULT 0," +
+                        "'RUPEE' INTEGER DEFAULT 0" +
                         ")");
-                getLogger().info("Таблица users создана или уже существует.");
+                statmt.execute("CREATE TABLE " +
+                        "if not exists 'country' " +
+                        "(" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'name' TEXT NOT NULL," +
+                        "'owner' TEXT DEFAULT 'none'," +
+                        "'member_number' INTEGER DEFAULT 0," +
+                        "'PESO' INTEGER DEFAULT 0, " +
+                        "'EURO' INTEGER DEFAULT 0," +
+                        "'REAL' INTEGER DEFAULT 0," +
+                        "'YUAN' INTEGER DEFAULT 0," +
+                        "'FRANK' INTEGER DEFAULT 0," +
+                        "'RUPEE' INTEGER DEFAULT 0" +
+                        ")");
+                getLogger().info("Таблицы создана или уже существует.");
             } catch (SQLException e) {
-                getLogger().info("Создание таблицы users не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             }
         }
     }

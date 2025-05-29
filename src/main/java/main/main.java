@@ -5,6 +5,7 @@ package main;
 import main.commands.command_DebugCommand;
 import main.commands.command_JoinTown;
 import main.database.dbConnect;
+import main.events.event_InventoryInteract;
 import main.events.event_OnJoin;
 import main.menus.menu_JoinMenu;
 import org.bukkit.Bukkit;
@@ -32,7 +33,7 @@ public final class main extends JavaPlugin {
 
 //----------------EVENT---------------------------
         Bukkit.getPluginManager().registerEvents(new event_OnJoin(), this);
-        Bukkit.getPluginManager().registerEvents(new menu_JoinMenu(), this);
+        Bukkit.getPluginManager().registerEvents(new event_InventoryInteract(), this);
 //----------------/EVENT---------------------------
 
 

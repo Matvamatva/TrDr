@@ -12,7 +12,7 @@
   <name>TrDr</name>
 
   <properties>
-    <output>C:\Users\CYN\Desktop\server\local499\plugins\TrDr.jar</output>
+    <output>C:\Users\main\Desktop\TrDr\локалка 499\plugins\TrDr.jar</output>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
