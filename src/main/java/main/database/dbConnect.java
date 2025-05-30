@@ -47,9 +47,8 @@ public class dbConnect {
                         "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "'username' TEXT NOT NULL," +
                         "'UUID' TEXT NOT NULL," +
-                        "'contry_perm3' TEXT DEFAULT 'none'," +
-                        "'contry_perm2' TEXT DEFAULT 'none'," +
-                        "'contry_perm1' TEXT DEFAULT 'none'," +
+                        "'town' TEXT NOT NULL," +
+                        "'country_perm' TEXT DEFAULT 'none'," +
                         "'PESO' INTEGER DEFAULT 0, " +
                         "'EURO' INTEGER DEFAULT 0," +
                         "'REAL' INTEGER DEFAULT 0," +
@@ -57,11 +56,33 @@ public class dbConnect {
                         "'FRANK' INTEGER DEFAULT 0," +
                         "'RUPEE' INTEGER DEFAULT 0" +
                         ")");
+                Thread.sleep(100);
                 statmt.execute("CREATE TABLE " +
                         "if not exists 'country' " +
                         "(" +
                         "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "'name' TEXT NOT NULL," +
+                        "'region' TEXT NOT NULL," +
+                        "'owner' TEXT DEFAULT 'none'," +
+                        "'member_number' INTEGER DEFAULT 0," +
+                        "'alliance' TEXT DEFAULT 'none'," +
+                        "'capital' TEXT DEFAULT 'none'," +
+                        "'PESO' INTEGER DEFAULT 0, " +
+                        "'EURO' INTEGER DEFAULT 0," +
+                        "'REAL' INTEGER DEFAULT 0," +
+                        "'YUAN' INTEGER DEFAULT 0," +
+                        "'FRANK' INTEGER DEFAULT 0," +
+                        "'RUPEE' INTEGER DEFAULT 0" +
+                        "'dominated' TEXT DEFAULT 'none'" +
+                        "'point_influence' INTEGER DEFAULT 0" +
+                        ")");
+                Thread.sleep(100);
+                statmt.execute("CREATE TABLE " +
+                        "if not exists 'towns' " +
+                        "(" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'name' TEXT NOT NULL," +
+                        "'country' TEXT NOT NULL," +
                         "'owner' TEXT DEFAULT 'none'," +
                         "'member_number' INTEGER DEFAULT 0," +
                         "'PESO' INTEGER DEFAULT 0, " +
@@ -70,65 +91,43 @@ public class dbConnect {
                         "'YUAN' INTEGER DEFAULT 0," +
                         "'FRANK' INTEGER DEFAULT 0," +
                         "'RUPEE' INTEGER DEFAULT 0" +
+                        "'hasOffice' TEXT DEFAULT 'none'," +
+                        "'hasBank' TEXT DEFAULT 'none'," +
+                        "'hasFactory' TEXT DEFAULT 'none'," +
+                        "'hasCourt' TEXT DEFAULT 'none'," +
+                        "'hasCourt' TEXT DEFAULT 'none'," +
+                        "'dominated' TEXT DEFAULT 'none'" +
+                        ")");
+                Thread.sleep(100);
+                statmt.execute("CREATE TABLE " +
+                        "if not exists 'order' " +
+                        "(" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'name' TEXT NOT NULL," +
+                        "'town' TEXT NOT NULL," +
+                        "'type' TEXT NOT NULL," +
+                        "'owner' TEXT DEFAULT 'none'," +
+                        "'price' INTEGER DEFAULT 0," +
+                        "'one_price' INTEGER DEFAULT 0," +
+                        "'descriprion' TEXT DEFAULT '-'," +
+                        ")");
+                Thread.sleep(100);
+                statmt.execute("CREATE TABLE " +
+                        "if not exists 'relations' " +
+                        "(" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'country1' TEXT DEFAULT 'none'" +
+                        "'country2' TEXT DEFAULT 'none'" +
+                        "'type' TEXT DEFAULT 'none'" +
+                        "'point' INTEGER DEFAULT 0," +
                         ")");
                 getLogger().info("Таблицы создана или уже существует.");
-            } catch (SQLException e) {
-                getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (SQLException | InterruptedException e) {
+                getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + " / Error:" + e);
             }
         }
     }
    //  --------гетЮзер--------
-    public static String getUser(String nickname, String type) {
-        // ArrayList<String> user = new ArrayList<String>();
-        String query = "SELECT * FROM 'users' WHERE username = '" + nickname + "'";
-        if (conn != null) {
-            try {
-                resSet = statmt.executeQuery(query);
-              //  for (int i = 1; true; i++) {
-                    if (type.equalsIgnoreCase("id")) {
-                        return String.valueOf(resSet.getInt("id"));
-                    } else if (type.equalsIgnoreCase("username")) {
-                        return resSet.getString("username");
-                    } else if (type.equalsIgnoreCase("UUID")) {
-                        return resSet.getString("UUID");
-                    } else if (
-                            type.equalsIgnoreCase("PESO") ||
-                            type.equalsIgnoreCase("EURO") ||
-                            type.equalsIgnoreCase("REAL") ||
-                            type.equalsIgnoreCase("YUAN") ||
-                            type.equalsIgnoreCase("FRANK") ||
-                            type.equalsIgnoreCase("RUPEE")
-                            ) {
-                        return resSet.getString(type);
-                    }
-               // }
-            } catch (SQLException e) {
-                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
-            } catch (NullPointerException e) {
-                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() +  " / Error:" + e);
-            }
-        }
-        return "";
-    }
-
-    //  --------сетЮзер--------
-    public static void setUser(String nickname, String type, String value) {
-        String query = "";
-        if (type.equals("newuser")) {
-            query = String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", nickname, value);
-        } else {
-            query = String.format("UPDATE 'users' SET %s = %s WHERE username = '%s'", type, value, nickname);
-        }
-        if (conn != null) {
-            try {
-                statmt.executeUpdate(query);
-            } catch (SQLException e) {
-                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
-            } catch (NullPointerException e) {
-                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error:" + e);
-            }
-        }
-    }
 
     // --------Закрытие--------
     public static void CloseDB() {
