@@ -36,7 +36,6 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
         } else {
             sender.sendMessage("Команды может отправлять только игрок");
         }
-
         return true;
     }
 

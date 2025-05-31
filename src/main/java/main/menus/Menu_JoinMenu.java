@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import static main.database.AliasDB.*;
 
 import java.util.*;
 
@@ -18,11 +19,14 @@ public class Menu_JoinMenu implements Listener {
     public static final String MENU_TITLE = ChatColor.GREEN + "Выбор страны";
 
     private final Map<String, Material> countries = new LinkedHashMap<>();
-   // List<String> list = new ArrayList<>(Arrays.asList("банан", "яблоко", "апельсин"));
     public static Inventory countryMenu;
+
+
+
     public void initCountries() {
         countries.clear();
-
+        for ()
+            getCountryName();
         countries.put("Япония", Material.RED_TERRACOTTA);
     }
 
@@ -33,6 +37,7 @@ public class Menu_JoinMenu implements Listener {
     }
 
     public void createMenu() {
+
         countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
         List<String> keys = new ArrayList<>(countries.keySet());
         Collections.shuffle(keys);
@@ -50,6 +55,7 @@ public class Menu_JoinMenu implements Listener {
             countryMenu.setItem(i, item);
         }
     }
+
 
 
 }

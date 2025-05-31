@@ -8,10 +8,12 @@ import main.database.DbConnect;
 import main.events.Event_InventoryInteract;
 import main.events.Event_OnJoin;
 import main.menus.Menu_JoinMenu;
+import main.Alias;
 import main.placeholders.Papi_main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 import static java.lang.Thread.sleep;
 
@@ -43,9 +45,7 @@ public final class main extends JavaPlugin {
 
 //----------------MENUS---------------------------
         Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.initCountries(); menuJoinMenu.createMenu();
-
-
-
+        new Alias(); Alias.initLanguage();
 //----------------/MENUS---------------------------
         getLogger().info("------------------------------------------------------");
     }
