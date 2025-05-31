@@ -45,9 +45,20 @@ public class Papi_main extends PlaceholderExpansion {
             return getUser(player.getName(), getRegionVault(player.getName())); //
         }
 
-        if (params.equalsIgnoreCase("placeholder2")) {
-            return plugin.getConfig().getString("placeholders.placeholder1", "default1"); //
+        if (params.equalsIgnoreCase("player_peso")) {
+            return getUser(player.getName(),"PESO"); //
+        } else if (params.equalsIgnoreCase("player_real")) {
+            return getUser(player.getName(),"REAL"); //
+        } else if (params.equalsIgnoreCase("player_euro")) {
+            return getUser(player.getName(),"EURO"); //
+        } else if (params.equalsIgnoreCase("player_yuan")) {
+            return getUser(player.getName(),"YUAN"); //
+        } else if (params.equalsIgnoreCase("player_frank")) {
+            return getUser(player.getName(),"FRANK"); //
+        } else if (params.equalsIgnoreCase("player_rupee")) {
+            return getUser(player.getName(),"RUPEE"); //
         }
+
 
         return null; //
     }

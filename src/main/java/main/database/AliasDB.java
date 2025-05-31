@@ -105,8 +105,16 @@ public class AliasDB extends DbConnect {
         String region = getCountry(getTown(getUser(nickname, "town"),"country"), "region");
         if (region.equalsIgnoreCase("Europa")){
             return "EURO";
-        } else if () {
-
+        } else if (region.equalsIgnoreCase("Asia")) {
+            return "YUAN";
+        } else if (region.equalsIgnoreCase("Africa")) {
+            return "FRANK";
+        } else if (region.equalsIgnoreCase("Oceania")) {
+            return "RUPEE";
+        } else if (region.equalsIgnoreCase("StAmerica")) {
+            return "REAL";
+        } else if (region.equalsIgnoreCase("NtAmerica")) {
+            return "PESO";
         }
         return "";
     }
