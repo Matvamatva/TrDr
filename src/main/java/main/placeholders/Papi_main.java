@@ -5,14 +5,14 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-import static main.database.aliasDB.getRegionVault;
-import static main.database.aliasDB.getUser;
+import static main.database.AliasDB.getRegionVault;
+import static main.database.AliasDB.getUser;
 
-public class papi_main extends PlaceholderExpansion {
+public class Papi_main extends PlaceholderExpansion {
 
     private final main plugin; //
 
-    public papi_main(main plugin) {
+    public Papi_main(main plugin) {
         this.plugin = plugin;
     }
 

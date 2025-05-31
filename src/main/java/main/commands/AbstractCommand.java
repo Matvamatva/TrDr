@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class abstractCommand implements CommandExecutor, TabCompleter {
+public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
 
-    public abstractCommand(String command) {
+    public AbstractCommand(String command) {
         PluginCommand commands = main.getInstance().getCommand(command);
         if (commands != null) {
             commands.setExecutor(this);

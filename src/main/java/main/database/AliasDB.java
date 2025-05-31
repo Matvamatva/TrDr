@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import static org.bukkit.Bukkit.getLogger;
 
-public class aliasDB extends dbConnect {
+public class AliasDB extends DbConnect {
     public static String getUser(String nickname, String type) {
         // ArrayList<String> user = new ArrayList<String>();
         String query = "SELECT * FROM 'users' WHERE username = '" + nickname + "'";
@@ -105,6 +105,7 @@ public class aliasDB extends dbConnect {
         String region = getCountry(getTown(getUser(nickname, "town"),"country"), "region");
         if (region.equalsIgnoreCase("Europa")){
             return "EURO";
+        } else if () {
 
         }
         return "";

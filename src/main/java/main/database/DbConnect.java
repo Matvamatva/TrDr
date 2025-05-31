@@ -2,19 +2,19 @@ package main.database;
 
 import java.io.IOException;
 import java.sql.*;
-import main.main;
+
 import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getLogger;
 import java.nio.file.*;
 
-public class dbConnect {
+public class DbConnect {
     private static String DBaddress = "jdbc:sqlite:plugins/TrDr/Users.db";
     public static Connection conn;
     public static Statement statmt;
     public static ResultSet resSet;
 
     // --------ПОДКЛЮЧЕНИЕ К БАЗЕ ДАННЫХ--------
-    public static void Conn() {
+    public static void conn() {
         Path workPath = Paths.get("./plugins/TrDr");
         if (!(Files.exists(workPath))) {
             try {
@@ -33,11 +33,11 @@ public class dbConnect {
         } catch (ClassNotFoundException e) {
             getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error: " + e);
         }
-        CreateDB();
+        createDB();
     }
 
     // --------Создание таблицы--------
-    private static void CreateDB() {
+    private static void createDB() {
         if (conn != null) {
             try {
                 statmt = conn.createStatement();
@@ -48,13 +48,14 @@ public class dbConnect {
                         "'username' TEXT NOT NULL," +
                         "'UUID' TEXT NOT NULL," +
                         "'town' TEXT DEFAULT 'none'," +
-                        "'country_perm' TEXT DEFAULT 'none'," +
+                        "'countryPerm' TEXT DEFAULT 'none'," +
                         "'PESO' INTEGER DEFAULT 0, " +
                         "'EURO' INTEGER DEFAULT 0," +
                         "'REAL' INTEGER DEFAULT 0," +
                         "'YUAN' INTEGER DEFAULT 0," +
                         "'FRANK' INTEGER DEFAULT 0," +
-                        "'RUPEE' INTEGER DEFAULT 0" +
+                        "'RUPEE' INTEGER DEFAULT 0," +
+                        "'lastJoin' INTEGER DEFAULT 0" +
                         ")");
                 Thread.sleep(100);
                 statmt.execute("CREATE TABLE " +
@@ -64,9 +65,10 @@ public class dbConnect {
                         "'name' TEXT NOT NULL," +
                         "'region' TEXT NOT NULL," +
                         "'owner' TEXT DEFAULT 'none'," +
-                        "'member_number' INTEGER DEFAULT 0," +
+                        "'memberNumber' INTEGER DEFAULT 0," +
                         "'alliance' TEXT DEFAULT 'none'," +
                         "'capital' TEXT DEFAULT 'none'," +
+                        "'type' TEXT DEFAULT 'none'," +
                         "'PESO' INTEGER DEFAULT 0, " +
                         "'EURO' INTEGER DEFAULT 0," +
                         "'REAL' INTEGER DEFAULT 0," +
@@ -107,7 +109,7 @@ public class dbConnect {
                         "'type' TEXT NOT NULL," +
                         "'owner' TEXT DEFAULT 'none'," +
                         "'price' INTEGER DEFAULT 0," +
-                        "'one_price' INTEGER DEFAULT 0," +
+                        "'onePrice' INTEGER DEFAULT 0," +
                         "'descriprion' TEXT DEFAULT '-'" +
                         ")");
                 Thread.sleep(100);
@@ -129,7 +131,7 @@ public class dbConnect {
    //  --------гетЮзер--------
 
     // --------Закрытие--------
-    public static void CloseDB() {
+    public static void closeDB() {
         if (conn != null) {
             try {
                 conn.close();

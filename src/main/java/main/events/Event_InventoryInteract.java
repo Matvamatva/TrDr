@@ -9,13 +9,13 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import static main.menus.menu_JoinMenu.MENU_TITLE;
-import static main.menus.menu_JoinMenu.countryMenu;
+import static main.menus.Menu_JoinMenu.MENU_TITLE;
+import static main.menus.Menu_JoinMenu.countryMenu;
 
-public class event_InventoryInteract implements Listener {
+public class Event_InventoryInteract implements Listener {
 
     @EventHandler
-    public void InventoryInteract(InventoryClickEvent event) {
+    public void inventoryInteract(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(MENU_TITLE)) return;
         event.setCancelled(true);
 

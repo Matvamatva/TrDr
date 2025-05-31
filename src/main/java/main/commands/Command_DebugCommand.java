@@ -3,10 +3,10 @@ package main.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static main.database.aliasDB.*;
+import static main.database.AliasDB.*;
 
-public class command_DebugCommand extends abstractCommand {
-    public command_DebugCommand() {
+public class Command_DebugCommand extends AbstractCommand {
+    public Command_DebugCommand() {
         super("debughelp");
     }
 

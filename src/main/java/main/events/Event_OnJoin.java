@@ -1,23 +1,23 @@
 package main.events;
 
-import main.database.aliasDB;
+import main.database.AliasDB;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import main.database.dbConnect;
+import main.database.DbConnect;
 
-public class event_OnJoin implements Listener {
+public class Event_OnJoin implements Listener {
 
     @EventHandler
-    public void JoinHandler (PlayerJoinEvent event) {
+    public void joinHandler (PlayerJoinEvent event) {
         Player player = event.getPlayer();
         event.setJoinMessage("");
 
-        String user = aliasDB.getUser(dbConnect.escapeSql(event.getPlayer()), "username");
+        String user = AliasDB.getUser(DbConnect.escapeSql(event.getPlayer()), "username");
         if (user == null) {
             player.sendMessage("Добро пожаловать на TrDr! Для начала обучения пропиши /newbie. Если ты уже знаком с сервером пропиши /inonewbie");
-            aliasDB.setUser(dbConnect.escapeSql(event.getPlayer()),"newuser", String.valueOf(player.getUniqueId()));
+            AliasDB.setUser(DbConnect.escapeSql(event.getPlayer()),"newuser", String.valueOf(player.getUniqueId()));
         }
     }
 }
