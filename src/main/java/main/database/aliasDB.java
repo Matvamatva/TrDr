@@ -27,6 +27,8 @@ public class aliasDB extends dbConnect {
                                 type.equalsIgnoreCase("RUPEE")
                 ) {
                     return resSet.getString(type);
+                } else if (type.equalsIgnoreCase("town")) {
+                    return resSet.getString("town");
                 }
                 // }
             } catch (SQLException e) {
@@ -34,6 +36,76 @@ public class aliasDB extends dbConnect {
             } catch (NullPointerException e) {
                 getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
+        }
+        return "";
+    }
+    public static String getTown(String town_name, String type){
+        String query = "SELECT * FROM 'towns' WHERE name = '" + town_name + "'";
+        if (conn != null) {
+            try {
+                resSet = statmt.executeQuery(query);
+                //  for (int i = 1; true; i++) {
+                if (type.equalsIgnoreCase("id")) {
+                    return String.valueOf(resSet.getInt("id"));
+                } else if (type.equalsIgnoreCase("name")) {
+                    return resSet.getString("name");
+                } else if (type.equalsIgnoreCase("country")) {
+                        return resSet.getString("country");
+                } else if (
+                        type.equalsIgnoreCase("PESO") ||
+                                type.equalsIgnoreCase("EURO") ||
+                                type.equalsIgnoreCase("REAL") ||
+                                type.equalsIgnoreCase("YUAN") ||
+                                type.equalsIgnoreCase("FRANK") ||
+                                type.equalsIgnoreCase("RUPEE")
+                ) {
+                    return resSet.getString(type);
+                }
+                // }
+            } catch (SQLException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+            }
+        }
+        return "";
+    }
+    public static String getCountry(String country_name, String type){
+        String query = "SELECT * FROM 'country' WHERE name = '" + country_name + "'";
+        if (conn != null) {
+            try {
+                resSet = statmt.executeQuery(query);
+                //  for (int i = 1; true; i++) {
+                if (type.equalsIgnoreCase("id")) {
+                    return String.valueOf(resSet.getInt("id"));
+                } else if (type.equalsIgnoreCase("name")) {
+                    return resSet.getString("name");
+                } else if (type.equalsIgnoreCase("region")) {
+                    return resSet.getString("region");
+                } else if (
+                        type.equalsIgnoreCase("PESO") ||
+                                type.equalsIgnoreCase("EURO") ||
+                                type.equalsIgnoreCase("REAL") ||
+                                type.equalsIgnoreCase("YUAN") ||
+                                type.equalsIgnoreCase("FRANK") ||
+                                type.equalsIgnoreCase("RUPEE")
+                ) {
+                    return resSet.getString(type);
+                }
+                // }
+            } catch (SQLException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+            }
+        }
+        return "";
+    }
+    public static String getRegionVault(String nickname) {
+        String region = getCountry(getTown(getUser(nickname, "town"),"country"), "region");
+        if (region.equalsIgnoreCase("Europa")){
+            return "EURO";
+
         }
         return "";
     }

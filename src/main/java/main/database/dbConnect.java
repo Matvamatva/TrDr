@@ -47,7 +47,7 @@ public class dbConnect {
                         "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "'username' TEXT NOT NULL," +
                         "'UUID' TEXT NOT NULL," +
-                        "'town' TEXT NOT NULL," +
+                        "'town' TEXT DEFAULT 'none'," +
                         "'country_perm' TEXT DEFAULT 'none'," +
                         "'PESO' INTEGER DEFAULT 0, " +
                         "'EURO' INTEGER DEFAULT 0," +
@@ -72,8 +72,8 @@ public class dbConnect {
                         "'REAL' INTEGER DEFAULT 0," +
                         "'YUAN' INTEGER DEFAULT 0," +
                         "'FRANK' INTEGER DEFAULT 0," +
-                        "'RUPEE' INTEGER DEFAULT 0" +
-                        "'dominated' TEXT DEFAULT 'none'" +
+                        "'RUPEE' INTEGER DEFAULT 0," +
+                        "'dominated' TEXT DEFAULT 'none'," +
                         "'point_influence' INTEGER DEFAULT 0" +
                         ")");
                 Thread.sleep(100);
@@ -90,11 +90,10 @@ public class dbConnect {
                         "'REAL' INTEGER DEFAULT 0," +
                         "'YUAN' INTEGER DEFAULT 0," +
                         "'FRANK' INTEGER DEFAULT 0," +
-                        "'RUPEE' INTEGER DEFAULT 0" +
+                        "'RUPEE' INTEGER DEFAULT 0," +
                         "'hasOffice' TEXT DEFAULT 'none'," +
                         "'hasBank' TEXT DEFAULT 'none'," +
                         "'hasFactory' TEXT DEFAULT 'none'," +
-                        "'hasCourt' TEXT DEFAULT 'none'," +
                         "'hasCourt' TEXT DEFAULT 'none'," +
                         "'dominated' TEXT DEFAULT 'none'" +
                         ")");
@@ -109,19 +108,19 @@ public class dbConnect {
                         "'owner' TEXT DEFAULT 'none'," +
                         "'price' INTEGER DEFAULT 0," +
                         "'one_price' INTEGER DEFAULT 0," +
-                        "'descriprion' TEXT DEFAULT '-'," +
+                        "'descriprion' TEXT DEFAULT '-'" +
                         ")");
                 Thread.sleep(100);
                 statmt.execute("CREATE TABLE " +
                         "if not exists 'relations' " +
                         "(" +
                         "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "'country1' TEXT DEFAULT 'none'" +
-                        "'country2' TEXT DEFAULT 'none'" +
-                        "'type' TEXT DEFAULT 'none'" +
-                        "'point' INTEGER DEFAULT 0," +
+                        "'country1' TEXT DEFAULT 'none'," +
+                        "'country2' TEXT DEFAULT 'none'," +
+                        "'type' TEXT DEFAULT 'none'," +
+                        "'point' INTEGER DEFAULT 0" +
                         ")");
-                getLogger().info("Таблицы создана или уже существует.");
+                getLogger().info("Таблицы созданы или уже существуют.");
             } catch (SQLException | InterruptedException e) {
                 getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + " / Error:" + e);
             }

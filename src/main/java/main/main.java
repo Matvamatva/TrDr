@@ -8,6 +8,7 @@ import main.database.dbConnect;
 import main.events.event_InventoryInteract;
 import main.events.event_OnJoin;
 import main.menus.menu_JoinMenu;
+import main.placeholders.papi_main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,9 @@ public final class main extends JavaPlugin {
         getLogger().info("--------------------------TRDR----------------------------");
         instance = this;
         dbConnect.Conn();
+//----------------Placeholders---------------------------
+        new papi_main(this).register();
+//----------------/Placeholders---------------------------
 //----------------COMMANDS---------------------------
         new command_DebugCommand();
         new command_JoinTown();
