@@ -4,6 +4,8 @@ package main;
 
 import main.commands.Command_DebugCommand;
 import main.commands.Command_JoinTown;
+import main.commands.Command_TestDB;
+import main.commands.Command_TestJoin;
 import main.database.DbConnect;
 import main.events.Event_InventoryInteract;
 import main.events.Event_OnJoin;
@@ -32,7 +34,7 @@ public final class main extends JavaPlugin {
 
 
 //----------------Placeholders---------------------------
-        new Papi_main(this).register();
+        // new Papi_main(this).register();
 //----------------/Placeholders---------------------------
 
 
@@ -40,6 +42,9 @@ public final class main extends JavaPlugin {
 //----------------COMMANDS---------------------------
         new Command_DebugCommand();
         new Command_JoinTown();
+        new Command_TestDB();
+        new Command_TestJoin();
+
 //----------------/COMMANDS---------------------------
 
 

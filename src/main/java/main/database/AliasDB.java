@@ -107,20 +107,15 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                return String.valueOf(resSet.getString("name"));
+                if (String.valueOf(resSet.getString("name")) != null) return String.valueOf(resSet.getString("name"));
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
-        return "null";
+        return "";
     }
-
-
-
-
-
 
     public static String getRegionVault(String nickname) {
         String region = getCountry(getTown(getUser(nickname, "town"),"country"), "region");
@@ -146,7 +141,7 @@ public class AliasDB extends DbConnect {
         if (type.equals("newuser")) {
             query = String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", nickname, value);
         } else {
-            query = String.format("UPDATE 'users' SET %s = %s WHERE username = '%s'", type, value, nickname);
+            query = String.format("UPDATE 'users' SET %s = '%s' WHERE username = '%s'", type, value, nickname);
         }
         if (conn != null) {
             try {
@@ -155,6 +150,41 @@ public class AliasDB extends DbConnect {
                 getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
                 getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error:" + e);
+            }
+        }
+    }
+    public static void setTown(String name, String type, String value) {
+        String query = "";
+        if (type.equals("newtown")) {
+            query = String.format("INSERT INTO 'towns' ('name', 'country') VALUES ('%s', '%s')", name, value);
+        } else {
+            query = String.format("UPDATE 'towns' SET %s = %s WHERE username = '%s'", type, value, name);
+        }
+        if (conn != null) {
+            try {
+                statmt.executeUpdate(query);
+            } catch (SQLException e) {
+                getLogger().info("Запрос setTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос setTown не удался. Класс: " + e.getClass() + " / Error:" + e);
+            }
+        }
+    }
+
+    public static void setCountry(String name, String type, String value) {
+        String query = "";
+        if (type.equals("newcountry")) {
+            query = String.format("INSERT INTO 'country' ('name', 'region') VALUES ('%s', '%s')", name, value);
+        } else {
+            query = String.format("UPDATE 'country' SET %s = %s WHERE username = '%s'", type, value, name);
+        }
+        if (conn != null) {
+            try {
+                statmt.executeUpdate(query);
+            } catch (SQLException e) {
+                getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
     }

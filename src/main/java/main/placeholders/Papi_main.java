@@ -44,7 +44,6 @@ public class Papi_main extends PlaceholderExpansion {
         if (params.equalsIgnoreCase("main_vault")) {
             return getUser(player.getName(), getRegionVault(player.getName())); //
         }
-
         if (params.equalsIgnoreCase("player_peso")) {
             return getUser(player.getName(),"PESO"); //
         } else if (params.equalsIgnoreCase("player_real")) {
