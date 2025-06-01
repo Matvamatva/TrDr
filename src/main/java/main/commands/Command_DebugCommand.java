@@ -1,5 +1,6 @@
 package main.commands;
 
+import main.menus.Menu_JoinMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import main.Alias;
@@ -14,5 +15,7 @@ public class Command_DebugCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
         Player player = (Player) sender;
+        Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.initCountries(); menuJoinMenu.createMenu();
+        player.sendMessage("ok");
     }
 }

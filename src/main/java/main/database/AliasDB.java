@@ -50,7 +50,9 @@ public class AliasDB extends DbConnect {
                 } else if (type.equalsIgnoreCase("name")) {
                     return resSet.getString("name");
                 } else if (type.equalsIgnoreCase("country")) {
-                        return resSet.getString("country");
+                    return resSet.getString("country");
+                } else if (type.equalsIgnoreCase("owner")) {
+                    return resSet.getString("owner");
                 } else if (
                         type.equalsIgnoreCase("PESO") ||
                                 type.equalsIgnoreCase("EURO") ||
@@ -61,6 +63,7 @@ public class AliasDB extends DbConnect {
                 ) {
                     return resSet.getString(type);
                 }
+
                 // }
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
@@ -82,6 +85,8 @@ public class AliasDB extends DbConnect {
                     return resSet.getString("name");
                 } else if (type.equalsIgnoreCase("region")) {
                     return resSet.getString("region");
+                } else if (type.equalsIgnoreCase("owner")) {
+                    return resSet.getString("owner");
                 } else if (
                         type.equalsIgnoreCase("PESO") ||
                                 type.equalsIgnoreCase("EURO") ||
@@ -92,6 +97,7 @@ public class AliasDB extends DbConnect {
                 ) {
                     return resSet.getString(type);
                 }
+
                 // }
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
@@ -141,7 +147,7 @@ public class AliasDB extends DbConnect {
         if (type.equals("newuser")) {
             query = String.format("INSERT INTO 'users' ('username', 'UUID') VALUES ('%s', '%s')", nickname, value);
         } else {
-            query = String.format("UPDATE 'users' SET %s = '%s' WHERE username = '%s'", type, value, nickname);
+            query = String.format("UPDATE 'users' SET '%s' = '%s' WHERE username = '%s'", type, value, nickname);
         }
         if (conn != null) {
             try {
@@ -158,7 +164,7 @@ public class AliasDB extends DbConnect {
         if (type.equals("newtown")) {
             query = String.format("INSERT INTO 'towns' ('name', 'country') VALUES ('%s', '%s')", name, value);
         } else {
-            query = String.format("UPDATE 'towns' SET %s = %s WHERE username = '%s'", type, value, name);
+            query = String.format("UPDATE 'towns' SET '%s' = '%s' WHERE name = '%s'", type, value, name);
         }
         if (conn != null) {
             try {
@@ -176,7 +182,7 @@ public class AliasDB extends DbConnect {
         if (type.equals("newcountry")) {
             query = String.format("INSERT INTO 'country' ('name', 'region') VALUES ('%s', '%s')", name, value);
         } else {
-            query = String.format("UPDATE 'country' SET %s = %s WHERE username = '%s'", type, value, name);
+            query = String.format("UPDATE 'country' SET '%s' = '%s' WHERE name = '%s'", type, value, name);
         }
         if (conn != null) {
             try {

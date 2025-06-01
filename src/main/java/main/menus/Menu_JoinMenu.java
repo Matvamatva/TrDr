@@ -19,7 +19,7 @@ public class Menu_JoinMenu implements Listener {
 
     public static final Menu_JoinMenu getInstance = new Menu_JoinMenu();
     private static final int MENU_SIZE = 18;
-    public static final String MENU_TITLE = ChatColor.GREEN + "Выбор страны";
+    public static final String MENU_TITLE_JOINMENU = ChatColor.GREEN + "Выбор страны";
 
     private final Map<String, Material> countries = new LinkedHashMap<>();
     public static Inventory countryMenu;
@@ -27,12 +27,15 @@ public class Menu_JoinMenu implements Listener {
 
 
     public void initCountries() {
-
         countries.clear();
         for (int i = 1; true; i++) {
             String name = getCountryName(String.valueOf(i));
+           // main.getInstance().getLogger().info(name);
             if (name.equals("null")) {break;}
-            countries.put(languageSwitch(name, "RU"), Material.BLACK_BANNER);
+            if (getCountry(name, "owner").equals("none")) {
+               // main.getInstance().getLogger().info(name);
+                countries.put(languageSwitch(name, "RU"), Material.BLACK_BANNER);
+            }
         }
     }
 
@@ -43,7 +46,7 @@ public class Menu_JoinMenu implements Listener {
 
     public void createMenu() {
 
-        countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
+        countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE_JOINMENU);
         List<String> keys = new ArrayList<>(countries.keySet());
         Collections.sort(keys, new BackComparator());
 
