@@ -55,7 +55,7 @@ public class DbConnect {
                         "'YUAN' INTEGER DEFAULT 0," +
                         "'FRANK' INTEGER DEFAULT 0," +
                         "'RUPEE' INTEGER DEFAULT 0," +
-                        "'lastJoin' INTEGER DEFAULT 0" +
+                        "'lastJoin' TEXT DEFAULT 'none'" +
                         ")");
                 Thread.sleep(100);
                 statmt.execute("CREATE TABLE " +
