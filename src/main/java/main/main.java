@@ -28,13 +28,20 @@ public final class main extends JavaPlugin {
         getLogger().info("--------------------------TRDR----------------------------");
         instance = this;
         DbConnect.conn();
+
+
+
 //----------------Placeholders---------------------------
         new Papi_main(this).register();
 //----------------/Placeholders---------------------------
+
+
+
 //----------------COMMANDS---------------------------
         new Command_DebugCommand();
         new Command_JoinTown();
 //----------------/COMMANDS---------------------------
+
 
 
 //----------------EVENT---------------------------
@@ -43,10 +50,19 @@ public final class main extends JavaPlugin {
 //----------------/EVENT---------------------------
 
 
+
+//----------------OTHERS---------------------------
+        new Alias(); Alias.initLanguage();
+//----------------/OTHERS---------------------------
+
+
+
 //----------------MENUS---------------------------
         Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.initCountries(); menuJoinMenu.createMenu();
-        new Alias(); Alias.initLanguage();
 //----------------/MENUS---------------------------
+
+
+
         getLogger().info("------------------------------------------------------");
     }
 

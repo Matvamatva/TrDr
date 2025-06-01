@@ -1,6 +1,6 @@
 package main.menus;
 
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,6 +9,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import static main.database.AliasDB.*;
+import static main.Alias.*;
+import main.main;
+import main.BackComparator;
 
 import java.util.*;
 
@@ -24,29 +27,33 @@ public class Menu_JoinMenu implements Listener {
 
 
     public void initCountries() {
+
         countries.clear();
-        for ()
-            getCountryName();
-        countries.put("Япония", Material.RED_TERRACOTTA);
+        for (int i = 1; true; i++) {
+            String name = getCountryName(String.valueOf(i));
+            if (name.equals("null")) {break;}
+            countries.put(languageSwitch(name, "RU"), Material.BLACK_BANNER);
+        }
     }
 
     public void OpenMenu(Player player) {
             player.openInventory(countryMenu);
         //    getLogger().info("Меню не найдено. Класс: " + e.getClass() + " / " + "Error: " + e);
-
     }
 
     public void createMenu() {
 
         countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
         List<String> keys = new ArrayList<>(countries.keySet());
-        Collections.shuffle(keys);
+        Collections.sort(keys, new BackComparator());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < countries.size(); i++) {
+
             String country = keys.get(i);
             Material mat = countries.get(country);
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
+
             if (meta != null) {
                 meta.setDisplayName(ChatColor.YELLOW + country);
                 meta.setLore(Collections.singletonList(ChatColor.GRAY + "Нажмите, чтобы выбрать страну"));
@@ -55,7 +62,4 @@ public class Menu_JoinMenu implements Listener {
             countryMenu.setItem(i, item);
         }
     }
-
-
-
 }

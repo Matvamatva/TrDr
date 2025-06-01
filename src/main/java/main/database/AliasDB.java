@@ -107,14 +107,14 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                if (String.valueOf(resSet.getString("name")) != null) return String.valueOf(resSet.getString("name"));
+                return String.valueOf(resSet.getString("name"));
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
-        return "";
+        return "null";
     }
 
 

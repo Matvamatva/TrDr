@@ -17,21 +17,20 @@ public class Event_InventoryInteract implements Listener {
     @EventHandler
     public void inventoryInteract(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(MENU_TITLE)) return;
+        Player player = (Player) event.getWhoClicked();
         event.setCancelled(true);
 
         if (event.getCurrentItem() == null) return;
         ItemStack clicked = event.getCurrentItem();
         ItemMeta meta = clicked.getItemMeta();
+
         if (meta == null || !meta.hasDisplayName()) return;
-
         String country = ChatColor.stripColor(meta.getDisplayName());
-
-        Player player = (Player) event.getWhoClicked();
-
         if (clicked.getType() == Material.AIR) return;
 
-        player.sendMessage(ChatColor.GREEN + "Вы выбрали страну: " + ChatColor.YELLOW + country);
 
+
+        player.sendMessage(ChatColor.GREEN + "Вы выбрали страну: " + ChatColor.YELLOW + country);
         countryMenu.setItem(event.getSlot(), null);
     }
 }

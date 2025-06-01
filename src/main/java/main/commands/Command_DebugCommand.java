@@ -2,6 +2,7 @@ package main.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import main.Alias;
 
 import static main.database.AliasDB.*;
 
@@ -13,7 +14,5 @@ public class Command_DebugCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
         Player player = (Player) sender;
-        player.sendMessage(getCountry(getTown(getUser(player.getName(), "town"),"country"), "region"));
-        player.sendMessage(getUser(player.getName(), getRegionVault(player.getName())));
     }
 }
