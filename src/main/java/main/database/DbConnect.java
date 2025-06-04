@@ -69,6 +69,7 @@ public class DbConnect {
                         "'alliance' TEXT DEFAULT 'none'," +
                         "'capital' TEXT DEFAULT 'none'," +
                         "'type' TEXT DEFAULT 'none'," +
+                        "'towns' TEXT DEFAULT 'none'," +
                         "'PESO' INTEGER DEFAULT 0, " +
                         "'EURO' INTEGER DEFAULT 0," +
                         "'REAL' INTEGER DEFAULT 0," +

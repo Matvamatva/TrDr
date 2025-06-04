@@ -6,9 +6,15 @@ import java.util.Map;
 
 
 public class Alias {
-
     private static final Map<String, String> languageRU = new LinkedHashMap<>();
     private static final Map<String, String> languageEN = new LinkedHashMap<>();
+
+
+
+
+
+
+
 
     public static void initLanguage () {
         languageRU.put("Australia","Австралия");
@@ -18,7 +24,6 @@ public class Alias {
         languageRU.put("Algeria","Алжир");
         languageRU.put("Angola","Ангола");
         languageRU.put("Andorra","Андорра");
-        languageRU.put("Antigua and Barbuda","Антигуа и Барбуда");
         languageRU.put("Argentina","Аргентина");
         languageRU.put("Armenia","Армения");
         languageRU.put("Afghanistan","Афганистан");
@@ -90,9 +95,7 @@ public class Alias {
         languageRU.put("China","Китай");
         languageRU.put("DPRK","КНДР");
         languageRU.put("Colombia","Колумбия");
-        languageRU.put("Comoros Islands","Коморские Острова");
         languageRU.put("Costa Rica","Коста-Рика");
-        languageRU.put("Cote d'Ivoire","Кот-д'Ивуар");
         languageRU.put("Cuba","Куба");
         languageRU.put("Kuwait","Кувейт");
         languageRU.put("Laos","Лаос");
@@ -113,7 +116,6 @@ public class Alias {
         languageRU.put("Maldives","Мальдивские Острова");
         languageRU.put("Malta","Мальта");
         languageRU.put("Morocco","Марокко");
-        languageRU.put("Marshall Islands","Маршалловы Острова");
         languageRU.put("Mexico","Мексика");
         languageRU.put("Mozambique","Мозамбик");
         languageRU.put("Moldova","Молдавия");
@@ -147,31 +149,24 @@ public class Alias {
         languageRU.put("Salvador","Сальвадор");
         languageRU.put("Samoa","Самоа");
         languageRU.put("San Marino","Сан-Марино");
-        languageRU.put("Sao Tome and Principe","Сан-Томе и Принсипи");
         languageRU.put("Saudi Arabia","Саудовская Аравия");
         languageRU.put("North Macedonia","Северная Македония");
-        languageRU.put("Seychelles","Сейшельские Острова");
         languageRU.put("Senegal","Сенегал");
-        languageRU.put("Saint Vincent and the Grenadines","Сент-Винсент и Гренадины");
-        languageRU.put("Saint Kitts and Nevis","Сент-Китс и Невис");
         languageRU.put("Saint Lucia","Сент-Люсия");
         languageRU.put("Serbia","Сербия");
         languageRU.put("Singapore","Сингапур");
         languageRU.put("Syria","Сирия");
         languageRU.put("Slovakia","Словакия");
         languageRU.put("Slovenia","Словения");
-        languageRU.put("Solomon Islands","Соломоновы Острова");
         languageRU.put("Somalia","Сомали");
         languageRU.put("Sudan","Судан");
         languageRU.put("Suriname","Суринам");
         languageRU.put("USA","США");
-        languageRU.put("Sierra Leone","Сьерра-Леоне");
         languageRU.put("Tajikistan","Таджикистан");
         languageRU.put("Thailand","Таиланд");
         languageRU.put("Tanzania","Танзания");
         languageRU.put("Togo","Того");
         languageRU.put("Tonga","Тонга");
-        languageRU.put("Trinidad and Tobago","Тринидад и Тобаго");
         languageRU.put("Tuvalu","Тувалу");
         languageRU.put("Tunisia","Тунис");
         languageRU.put("Turkmenistan","Туркмения");
@@ -180,7 +175,6 @@ public class Alias {
         languageRU.put("Uzbekistan","Узбекистан");
         languageRU.put("Ukraine","Украина");
         languageRU.put("Uruguay","Уругвай");
-        languageRU.put("Federated States of Micronesia","Федеративные Штаты Микронезии");
         languageRU.put("Fiji","Фиджи");
         languageRU.put("Philippines","Филиппины");
         languageRU.put("Finland","Финляндия");
@@ -214,7 +208,6 @@ public class Alias {
         languageEN.put("Алжир","Algeria");
         languageEN.put("Ангола","Angola");
         languageEN.put("Андорра","Andorra");
-        languageEN.put("Антигуа и Барбуда","Antigua and Barbuda");
         languageEN.put("Аргентина","Argentina");
         languageEN.put("Армения","Armenia");
         languageEN.put("Афганистан","Afghanistan");
@@ -286,9 +279,7 @@ public class Alias {
         languageEN.put("Китай","China");
         languageEN.put("КНДР","DPRK");
         languageEN.put("Колумбия","Colombia");
-        languageEN.put("Коморские Острова","Comoros Islands");
         languageEN.put("Коста-Рика","Costa Rica");
-        languageEN.put("Кот-д'Ивуар","Cote d'Ivoire");
         languageEN.put("Куба","Cuba");
         languageEN.put("Кувейт","Kuwait");
         languageEN.put("Лаос","Laos");
@@ -309,7 +300,6 @@ public class Alias {
         languageEN.put("Мальдивские Острова","Maldives");
         languageEN.put("Мальта","Malta");
         languageEN.put("Марокко","Morocco");
-        languageEN.put("Маршалловы Острова","Marshall Islands");
         languageEN.put("Мексика","Mexico");
         languageEN.put("Мозамбик","Mozambique");
         languageEN.put("Молдавия","Moldova");
@@ -343,31 +333,24 @@ public class Alias {
         languageEN.put("Сальвадор","Salvador");
         languageEN.put("Самоа","Samoa");
         languageEN.put("Сан-Марино","San Marino");
-        languageEN.put("Сан-Томе и Принсипи","Sao Tome and Principe");
         languageEN.put("Саудовская Аравия","Saudi Arabia");
         languageEN.put("Северная Македония","North Macedonia");
-        languageEN.put("Сейшельские Острова","Seychelles");
         languageEN.put("Сенегал","Senegal");
-        languageEN.put("Сент-Винсент и Гренадины","Saint Vincent and the Grenadines");
-        languageEN.put("Сент-Китс и Невис","Saint Kitts and Nevis");
         languageEN.put("Сент-Люсия","Saint Lucia");
         languageEN.put("Сербия","Serbia");
         languageEN.put("Сингапур","Singapore");
         languageEN.put("Сирия","Syria");
         languageEN.put("Словакия","Slovakia");
         languageEN.put("Словения","Slovenia");
-        languageEN.put("Соломоновы Острова","Solomon Islands");
         languageEN.put("Сомали","Somalia");
         languageEN.put("Судан","Sudan");
         languageEN.put("Суринам","Suriname");
         languageEN.put("США","USA");
-        languageEN.put("Сьерра-Леоне","Sierra Leone");
         languageEN.put("Таджикистан","Tajikistan");
         languageEN.put("Таиланд","Thailand");
         languageEN.put("Танзания","Tanzania");
         languageEN.put("Того","Togo");
         languageEN.put("Тонга","Tonga");
-        languageEN.put("Тринидад и Тобаго","Trinidad and Tobago");
         languageEN.put("Тувалу","Tuvalu");
         languageEN.put("Тунис","Tunisia");
         languageEN.put("Туркмения","Turkmenistan");
@@ -376,7 +359,6 @@ public class Alias {
         languageEN.put("Узбекистан","Uzbekistan");
         languageEN.put("Украина","Ukraine");
         languageEN.put("Уругвай","Uruguay");
-        languageEN.put("Федеративные Штаты Микронезии","Federated States of Micronesia");
         languageEN.put("Фиджи","Fiji");
         languageEN.put("Филиппины","Philippines");
         languageEN.put("Финляндия","Finland");

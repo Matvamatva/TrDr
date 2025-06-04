@@ -1,10 +1,18 @@
 package main.database;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.bukkit.Bukkit.getLogger;
 
 public class AliasDB extends DbConnect {
+
+
+
     public static String getUser(String nickname, String type) {
         // ArrayList<String> user = new ArrayList<String>();
         String query = "SELECT * FROM 'users' WHERE username = '" + nickname + "'";
@@ -193,5 +201,38 @@ public class AliasDB extends DbConnect {
                 getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
+    }
+
+
+
+    public ArrayList getTowns (String name) {
+        ArrayList<@NotNull String> towns = new ArrayList<String>();
+        String query = String.format("SELECT * FROM 'country' WHERE name = '%s'", name);
+        if (conn != null) {
+            try {
+                resSet = statmt.executeQuery(query);
+                String townsget = resSet.getString("towns");
+                towns = (ArrayList<String>) Arrays.asList(townsget.split(","));
+            } catch (SQLException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+            }
+        }
+        return towns;
+    }
+    public void setTowns (ArrayList value, String name) {
+
+       String query = String.format("UPDATE 'country' SET 'towns' = '%s' WHERE name = '%s'", value.toString(), name);
+        if (conn != null) {
+        try {
+            statmt.executeUpdate(query);
+        } catch (SQLException e) {
+            getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        } catch (NullPointerException e) {
+            getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
+        }
+    }
+
     }
 }

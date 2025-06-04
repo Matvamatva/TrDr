@@ -36,7 +36,6 @@ public class Event_InventoryInteract implements Listener {
 
             setUser(player.getName(), "town", country);
             setCountry(Alias.languageSwitch(country, "EN"), "owner", player.getName());
-            player.sendMessage(Alias.languageSwitch(country, "EN"));
             player.sendMessage(ChatColor.GREEN + "[DEBUG] Вы выбрали страну: " + ChatColor.YELLOW + country);
 
             Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu();
