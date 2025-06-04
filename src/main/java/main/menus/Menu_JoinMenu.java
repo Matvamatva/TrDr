@@ -20,21 +20,40 @@ public class Menu_JoinMenu implements Listener {
     public static final Menu_JoinMenu getInstance = new Menu_JoinMenu();
     private static final int MENU_SIZE = 18;
     public static final String MENU_TITLE_JOINMENU = ChatColor.GREEN + "Выбор страны";
+    public static final String MENU_TITLE_TOWNMENU = ChatColor.GREEN + "Выбор города";
 
     private final Map<String, Material> countries = new LinkedHashMap<>();
+    private final Map<String, Material> towns = new LinkedHashMap<>();
     public static Inventory countryMenu;
+    public static Inventory townMenu;
 
 
 
     public void initCountries() {
         countries.clear();
         for (int i = 1; true; i++) {
-            String name = getCountryName(String.valueOf(i));
+            String country = getCountryName(String.valueOf(i));
            // main.getInstance().getLogger().info(name);
-            if (name.equals("null")) {break;}
-            if (getCountry(name, "owner").equals("none")) {
-               // main.getInstance().getLogger().info(name);
-                countries.put(languageSwitch(name, "RU"), Material.BLACK_BANNER);
+            if (country.equals("null")) {break;}
+            if (getCountry(country, "owner").equals("none")) {
+               // main.getInstance().getLogger().info(country);
+                countries.put(languageSwitch(country, "RU"), Material.BLACK_BANNER);
+            }
+        }
+    }
+
+
+
+    public void initTowns(String name) {
+        ArrayList<String> temp = getTowns("name");
+        Map<String, Material> towns = new LinkedHashMap<>();
+        towns.clear();
+        for (int i = 0; i < temp.size(); i++) {
+            String town = temp.get(i);
+            main.getInstance().getLogger().info(name);
+            if (getTown(name, "owner").equals("none")) {
+                // main.getInstance().getLogger().info(name);
+                countries.put(name, Material.BLACK_BANNER);
             }
         }
     }
@@ -44,7 +63,7 @@ public class Menu_JoinMenu implements Listener {
         //    getLogger().info("Меню не найдено. Класс: " + e.getClass() + " / " + "Error: " + e);
     }
 
-    public void createMenu() {
+    public void createMenuCountry() {
 
         countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE_JOINMENU);
         List<String> keys = new ArrayList<>(countries.keySet());
@@ -60,6 +79,30 @@ public class Menu_JoinMenu implements Listener {
             if (meta != null) {
                 meta.setDisplayName(ChatColor.YELLOW + country);
                 meta.setLore(Collections.singletonList(ChatColor.GRAY + "Нажмите, чтобы выбрать страну"));
+                item.setItemMeta(meta);
+            }
+            countryMenu.setItem(i, item);
+        }
+    }
+
+
+
+    public void createMenuTowns(String name) {
+        initTowns(name);
+        townMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE_TOWNMENU);
+        List<String> keys = new ArrayList<>(towns.keySet());
+        Collections.sort(keys, new BackComparator());
+
+        for (int i = 0; i < towns.size(); i++) {
+
+            String town = keys.get(i);
+            Material mat = towns.get(town);
+            ItemStack item = new ItemStack(mat);
+            ItemMeta meta = item.getItemMeta();
+
+            if (meta != null) {
+                meta.setDisplayName(ChatColor.YELLOW + town);
+                meta.setLore(Collections.singletonList(ChatColor.GRAY + "Нажмите, чтобы выбрать город"));
                 item.setItemMeta(meta);
             }
             countryMenu.setItem(i, item);

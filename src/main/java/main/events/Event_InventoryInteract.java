@@ -24,9 +24,9 @@ public class Event_InventoryInteract implements Listener {
         ItemStack clicked = event.getCurrentItem();
         ItemMeta meta = clicked.getItemMeta();
 
-        if (!(getUser(player.getName(), "town").equals("none"))) {
-            player.sendMessage("Вы уже в стране");
-        } else {
+       // if (!(getUser(player.getName(), "town").equals("none"))) {
+           // player.sendMessage("Вы уже в стране");
+       // } else {
             if (event.getCurrentItem() == null) return;
             if (meta == null || !meta.hasDisplayName()) return;
 
@@ -34,13 +34,10 @@ public class Event_InventoryInteract implements Listener {
 
             if (clicked.getType() == Material.AIR) return;
 
-            setUser(player.getName(), "town", country);
-            setCountry(Alias.languageSwitch(country, "EN"), "owner", player.getName());
+           // setUser(player.getName(), "town", country);
+          //  setCountry(Alias.languageSwitch(country, "EN"), "owner", player.getName());
             player.sendMessage(ChatColor.GREEN + "[DEBUG] Вы выбрали страну: " + ChatColor.YELLOW + country);
-
-            Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu();
-            menuJoinMenu.initCountries();
-            menuJoinMenu.createMenu();
+            player.openInventory(Menu_JoinMenu.countryMenu);
         }
         player.closeInventory();
     }

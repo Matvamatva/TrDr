@@ -1,5 +1,6 @@
 package main.database;
 
+import main.main;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -205,34 +206,32 @@ public class AliasDB extends DbConnect {
 
 
 
-    public ArrayList getTowns (String name) {
-        ArrayList<@NotNull String> towns = new ArrayList<String>();
+    public static ArrayList<String> getTowns (String name) {
         String query = String.format("SELECT * FROM 'country' WHERE name = '%s'", name);
+        ArrayList<String> towns = null;
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                String townsget = resSet.getString("towns");
-                towns = (ArrayList<String>) Arrays.asList(townsget.split(","));
+                String replace = resSet.getString("towns").replace("[","");
+                String replace1 = replace.replace("]","");
+                towns = new ArrayList<>(Arrays.asList(replace1.split(",")));
             } catch (SQLException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().info("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+                getLogger().info("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
         return towns;
     }
-    public void setTowns (ArrayList value, String name) {
+    public static void setTowns (ArrayList<String> value, String name) {
 
        String query = String.format("UPDATE 'country' SET 'towns' = '%s' WHERE name = '%s'", value.toString(), name);
-        if (conn != null) {
-        try {
+        if (conn != null) try {
             statmt.executeUpdate(query);
         } catch (SQLException e) {
-            getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            getLogger().info("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         } catch (NullPointerException e) {
-            getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
+            getLogger().info("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
         }
-    }
-
     }
 }

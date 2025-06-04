@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import main.Alias;
 
+import java.util.ArrayList;
+
 import static main.database.AliasDB.*;
 
 public class Command_DebugCommand extends AbstractCommand {
@@ -15,7 +17,6 @@ public class Command_DebugCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
         Player player = (Player) sender;
-        Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.initCountries(); menuJoinMenu.createMenu();
-        player.sendMessage("ok");
+        player.sendMessage("yes");
     }
 }
