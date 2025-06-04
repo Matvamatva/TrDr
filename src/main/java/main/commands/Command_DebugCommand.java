@@ -17,6 +17,12 @@ public class Command_DebugCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
         Player player = (Player) sender;
+
+        ArrayList<String> town = new ArrayList<String>();
+        town.add("Moscow");
+        town.add("Stavropol");
+
+        setTowns(town, "Russia");
         player.sendMessage("yes");
     }
 }

@@ -203,9 +203,6 @@ public class AliasDB extends DbConnect {
             }
         }
     }
-
-
-
     public static ArrayList<String> getTowns (String name) {
         String query = String.format("SELECT * FROM 'country' WHERE name = '%s'", name);
         ArrayList<String> towns = null;

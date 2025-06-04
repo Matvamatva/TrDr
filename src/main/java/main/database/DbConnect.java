@@ -8,7 +8,7 @@ import static org.bukkit.Bukkit.getLogger;
 import java.nio.file.*;
 
 public class DbConnect {
-    private static String DBaddress = "jdbc:sqlite:plugins/TrDr/Users.db";
+    private static String DBaddress = "jdbc:sqlite:plugins/TrDr/TrDr.db";
     public static Connection conn;
     public static Statement statmt;
     public static ResultSet resSet;

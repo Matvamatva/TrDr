@@ -16,12 +16,9 @@ public class Command_TestDB extends AbstractCommand {
         AliasDB.setCountry("Germany", "newcountry", "Europa");
         AliasDB.setCountry("Russia", "newcountry", "Europa");
         AliasDB.setCountry("China", "newcountry", "Asia");
-        AliasDB.setTown("Берлин","newtown", "Germany");
-        AliasDB.setTown("Гамбург","newtown","Germany");
-        AliasDB.setTown("Ставрополь","newtown", "Russia");
-        AliasDB.setTown("Воронеж","newtown","Russia");
-        AliasDB.setTown("Пекин","newtown","China");
-        AliasDB.setTown("Гонконг","newtown","China");
+        AliasDB.setTown("Berlin","newtown", "Germany");
+        AliasDB.setTown("Stavropol","newtown", "Russia");
+        AliasDB.setTown("Moscow","newtown","Russia");
 
         player.sendMessage("Дебаг-страны созданы.");
     }

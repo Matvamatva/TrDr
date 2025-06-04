@@ -15,10 +15,9 @@ import main.BackComparator;
 
 import java.util.*;
 
-public class Menu_JoinMenu implements Listener {
+public class Menu_JoinMenu {
 
     public static final Menu_JoinMenu getInstance = new Menu_JoinMenu();
-    private static final int MENU_SIZE = 18;
     public static final String MENU_TITLE_JOINMENU = ChatColor.GREEN + "Выбор страны";
     public static final String MENU_TITLE_TOWNMENU = ChatColor.GREEN + "Выбор города";
 
@@ -35,25 +34,27 @@ public class Menu_JoinMenu implements Listener {
             String country = getCountryName(String.valueOf(i));
            // main.getInstance().getLogger().info(name);
             if (country.equals("null")) {break;}
-            if (getCountry(country, "owner").equals("none")) {
+           // if (getCountry(country, "owner").equals("none")) {
                // main.getInstance().getLogger().info(country);
                 countries.put(languageSwitch(country, "RU"), Material.BLACK_BANNER);
             }
-        }
     }
 
 
 
     public void initTowns(String name) {
-        ArrayList<String> temp = getTowns("name");
-        Map<String, Material> towns = new LinkedHashMap<>();
         towns.clear();
-        for (int i = 0; i < temp.size(); i++) {
-            String town = temp.get(i);
-            main.getInstance().getLogger().info(name);
-            if (getTown(name, "owner").equals("none")) {
-                // main.getInstance().getLogger().info(name);
-                countries.put(name, Material.BLACK_BANNER);
+        ArrayList<String> temp = getTowns(name);
+        main.getInstance().getLogger().info(temp.toString());
+        for (int i = 0; true; i++) {
+            String town;
+            try {
+                town = temp.get(i).replace(" ", "");
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            if (getTown(town, "owner").equals("none")) {
+                towns.put(town, Material.BLACK_BANNER);
             }
         }
     }
@@ -64,8 +65,8 @@ public class Menu_JoinMenu implements Listener {
     }
 
     public void createMenuCountry() {
-
-        countryMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE_JOINMENU);
+        initCountries();
+        countryMenu = Bukkit.createInventory(null, 18, MENU_TITLE_JOINMENU);
         List<String> keys = new ArrayList<>(countries.keySet());
         Collections.sort(keys, new BackComparator());
 
@@ -88,24 +89,21 @@ public class Menu_JoinMenu implements Listener {
 
 
     public void createMenuTowns(String name) {
-        initTowns(name);
-        townMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE_TOWNMENU);
+        townMenu = Bukkit.createInventory(null, 18, MENU_TITLE_TOWNMENU);
         List<String> keys = new ArrayList<>(towns.keySet());
         Collections.sort(keys, new BackComparator());
 
         for (int i = 0; i < towns.size(); i++) {
-
             String town = keys.get(i);
             Material mat = towns.get(town);
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
-
             if (meta != null) {
                 meta.setDisplayName(ChatColor.YELLOW + town);
                 meta.setLore(Collections.singletonList(ChatColor.GRAY + "Нажмите, чтобы выбрать город"));
                 item.setItemMeta(meta);
             }
-            countryMenu.setItem(i, item);
+            townMenu.setItem(i, item);
         }
     }
 }

@@ -63,7 +63,7 @@ public final class main extends JavaPlugin {
 
 
 //----------------MENUS---------------------------
-        Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.initCountries(); menuJoinMenu.createMenuCountry();
+        Menu_JoinMenu menuJoinMenu = new Menu_JoinMenu(); menuJoinMenu.createMenuCountry();
 //----------------/MENUS---------------------------
 
 

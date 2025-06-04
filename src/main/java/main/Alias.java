@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -198,7 +197,10 @@ public class Alias {
         languageRU.put("South Sudan","Южный Судан");
         languageRU.put("Jamaica","Ямайка");
         languageRU.put("Japan","Япония");
-
+        //--------------------------------------------------
+        languageRU.put("Berlin","Берлин");
+        languageRU.put("Stavropol","Ставрополь");
+        languageRU.put("Moscow","Москва");
 
 
         languageEN.put("Австралия","Australia");
@@ -382,6 +384,11 @@ public class Alias {
         languageEN.put("Южный Судан","South Sudan");
         languageEN.put("Ямайка","Jamaica");
         languageEN.put("Япония","Japan");
+        //------------------------------------------------
+        languageEN.put("Берлин", "Berlin");
+        languageEN.put("Ставрополь","Stavropol");
+        languageEN.put("Москва","Moscow");
+
     }
 
     public static String languageSwitch (String name, String type) {
