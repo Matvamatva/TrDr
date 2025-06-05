@@ -36,12 +36,19 @@ public class Event_InventoryInteract implements Listener {
             if (meta == null || !meta.hasDisplayName()) return;
             if (clicked.getType() == Material.AIR) return;
 
-            String town = ChatColor.stripColor(meta.getDisplayName());
+            String town = languageSwitch(ChatColor.stripColor(meta.getDisplayName()), "EN");
+
+            if (!(getTown(town, "owner").equals("none"))) {
+                player.sendMessage("Город уже занят");
+                player.closeInventory();
+                return;
+            }
 
             setUser(player.getName(), "town", town);
             setTown(town, "owner", player.getName());
 
             player.sendMessage("Вы выбрали:" + town);
+            player.closeInventory();
         }
 
 

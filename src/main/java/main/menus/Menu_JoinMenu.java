@@ -99,7 +99,7 @@ public class Menu_JoinMenu {
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
             if (meta != null) {
-                meta.setDisplayName(ChatColor.YELLOW + town);
+                meta.setDisplayName(languageSwitch(town, "RU"));
                 meta.setLore(Collections.singletonList(ChatColor.GRAY + "Нажмите, чтобы выбрать город"));
                 item.setItemMeta(meta);
             }
