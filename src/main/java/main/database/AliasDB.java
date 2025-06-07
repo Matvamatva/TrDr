@@ -20,7 +20,6 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                //  for (int i = 1; true; i++) {
                 if (type.equalsIgnoreCase("id")) {
                     return String.valueOf(resSet.getInt("id"));
                 } else if (type.equalsIgnoreCase("username")) {
@@ -39,7 +38,7 @@ public class AliasDB extends DbConnect {
                 } else if (type.equalsIgnoreCase("town")) {
                     return resSet.getString("town");
                 }
-                // }
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -48,12 +47,27 @@ public class AliasDB extends DbConnect {
         }
         return "";
     }
-    public static String getTown(String town_name, String type){
+
+    public static String getPragma() {
+        String journalMode = null;
+        try {
+            String query = "PRAGMA journal_mode;";
+            resSet = statmt.executeQuery(query);
+            if (resSet.next()) {
+                journalMode = resSet.getString(1);
+            }
+            resSet.close();
+        } catch (SQLException e) {
+            getLogger().info("Запрос getPragma не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+        }
+        return journalMode;
+    }
+
+    public static String getTown(String town_name, String type) {
         String query = "SELECT * FROM 'towns' WHERE name = '" + town_name + "'";
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                //  for (int i = 1; true; i++) {
                 if (type.equalsIgnoreCase("id")) {
                     return String.valueOf(resSet.getInt("id"));
                 } else if (type.equalsIgnoreCase("name")) {
@@ -72,8 +86,7 @@ public class AliasDB extends DbConnect {
                 ) {
                     return resSet.getString(type);
                 }
-
-                // }
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -82,12 +95,12 @@ public class AliasDB extends DbConnect {
         }
         return "";
     }
-    public static String getCountry(String country_name, String type){
+
+    public static String getCountry(String country_name, String type) {
         String query = "SELECT * FROM 'country' WHERE name = '" + country_name + "'";
         if (conn != null) {
             try {
                 resSet = statmt.executeQuery(query);
-                //  for (int i = 1; true; i++) {
                 if (type.equalsIgnoreCase("id")) {
                     return String.valueOf(resSet.getInt("id"));
                 } else if (type.equalsIgnoreCase("name")) {
@@ -106,8 +119,7 @@ public class AliasDB extends DbConnect {
                 ) {
                     return resSet.getString(type);
                 }
-
-                // }
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -123,6 +135,7 @@ public class AliasDB extends DbConnect {
             try {
                 resSet = statmt.executeQuery(query);
                 if (String.valueOf(resSet.getString("name")) != null) return String.valueOf(resSet.getString("name"));
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -134,7 +147,7 @@ public class AliasDB extends DbConnect {
 
     public static String getRegionVault(String nickname) {
         String region = getCountry(getTown(getUser(nickname, "town"),"country"), "region");
-        if (region.equalsIgnoreCase("Europa")){
+        if (region.equalsIgnoreCase("Europa")) {
             return "EURO";
         } else if (region.equalsIgnoreCase("Asia")) {
             return "YUAN";
@@ -150,7 +163,6 @@ public class AliasDB extends DbConnect {
         return "";
     }
 
-    //  --------сетЮзер--------
     public static void setUser(String nickname, String type, String value) {
         String query = "";
         if (type.equals("newuser")) {
@@ -161,6 +173,7 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 statmt.executeUpdate(query);
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -168,6 +181,7 @@ public class AliasDB extends DbConnect {
             }
         }
     }
+
     public static void setTown(String name, String type, String value) {
         String query = "";
         if (type.equals("newtown")) {
@@ -178,6 +192,7 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 statmt.executeUpdate(query);
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос setTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -196,6 +211,7 @@ public class AliasDB extends DbConnect {
         if (conn != null) {
             try {
                 statmt.executeUpdate(query);
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -203,6 +219,7 @@ public class AliasDB extends DbConnect {
             }
         }
     }
+
     public static ArrayList<String> getTowns (String name) {
         String query = String.format("SELECT * FROM 'country' WHERE name = '%s'", name);
         ArrayList<String> towns = null;
@@ -212,6 +229,7 @@ public class AliasDB extends DbConnect {
                 String replace = resSet.getString("towns").replace("[","");
                 String replace1 = replace.replace("]","");
                 towns = new ArrayList<>(Arrays.asList(replace1.split(",")));
+                resSet.close();
             } catch (SQLException e) {
                 getLogger().info("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
@@ -220,11 +238,13 @@ public class AliasDB extends DbConnect {
         }
         return towns;
     }
+
     public static void setTowns (ArrayList<String> value, String name) {
 
        String query = String.format("UPDATE 'country' SET 'towns' = '%s' WHERE name = '%s'", value.toString(), name);
         if (conn != null) try {
             statmt.executeUpdate(query);
+            resSet.close();
         } catch (SQLException e) {
             getLogger().info("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         } catch (NullPointerException e) {

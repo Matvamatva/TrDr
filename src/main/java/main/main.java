@@ -44,7 +44,6 @@ public final class main extends JavaPlugin {
         new Command_JoinTown();
         new Command_TestDB();
         new Command_TestJoin();
-
 //----------------/COMMANDS---------------------------
 
 
@@ -78,3 +77,4 @@ public final class main extends JavaPlugin {
 
     public static main getInstance() { return instance;}
 }
+

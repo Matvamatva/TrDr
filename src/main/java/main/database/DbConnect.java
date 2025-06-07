@@ -6,6 +6,7 @@ import java.sql.*;
 import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getLogger;
 import java.nio.file.*;
+import static main.database.AliasDB.*;
 
 public class DbConnect {
     private static String DBaddress = "jdbc:sqlite:plugins/TrDr/TrDr.db";
@@ -23,6 +24,7 @@ public class DbConnect {
                 getLogger().info("Не удалось создать папку." + e);
             }
         }
+
         try {
             conn = null;
             Class.forName("org.sqlite.JDBC");
@@ -36,11 +38,11 @@ public class DbConnect {
         createDB();
     }
 
-    // --------Создание таблицы--------
     private static void createDB() {
         if (conn != null) {
             try {
                 statmt = conn.createStatement();
+                statmt.execute("PRAGMA journal_mode = WAL;");
                 statmt.execute("CREATE TABLE " +
                         "if not exists 'users' " +
                         "(" +
@@ -123,7 +125,9 @@ public class DbConnect {
                         "'type' TEXT DEFAULT 'none'," +
                         "'point' INTEGER DEFAULT 0" +
                         ")");
+                String pragma = String.valueOf(statmt.execute("PRAGMA journal_mode"));
                 getLogger().info("Таблицы созданы или уже существуют.");
+                getLogger().info("ПРАГМА journal_mode = " + getPragma());
             } catch (SQLException | InterruptedException e) {
                 getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + " / Error:" + e);
             }
@@ -165,6 +169,8 @@ public class DbConnect {
         }
     }
 }
+
+
 /*
 
 
