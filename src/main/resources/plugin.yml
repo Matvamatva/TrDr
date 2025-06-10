@@ -7,7 +7,7 @@ load: STARTUP
 authors: [Matva, Drac0shka]
 description: Economy plugin for server TrDr
 website: later
-depend: ["PlaceholderAPI"]
+depend: ["PlaceholderAPI", "Vault"]
 commands:
   debugjoinmenu: {}
   debughelp: {}

@@ -1,7 +1,13 @@
 package main;
 
+import org.bukkit.entity.Player;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+import main.main;
+import org.jetbrains.annotations.NotNull;
+
+import static main.database.AliasDB.*;
 
 
 public class Alias {
@@ -9,10 +15,29 @@ public class Alias {
     private static final Map<String, String> languageEN = new LinkedHashMap<>();
 
 
-
-
-
-
+    public static Double exchange(String firstVault, Double firstValue , String secondVault) {
+        if (!(
+                firstVault.equals("PESO") ||
+                firstVault.equals("DOLLAR") ||
+                firstVault.equals("EURO") ||
+                firstVault.equals("REAL") ||
+                firstVault.equals("YUAN'") ||
+                firstVault.equals("FRANK") ||
+                firstVault.equals("RUPEE") ||
+                secondVault.equals("PESO") ||
+                secondVault.equals("DOLLAR") ||
+                secondVault.equals("EURO") ||
+                secondVault.equals("REAL") ||
+                secondVault.equals("YUAN'") ||
+                secondVault.equals("FRANK") ||
+                secondVault.equals("RUPEE")
+        )) {
+            main.getInstance().getLogger().info("Валюта не являются валютой, ошибка мозга разработчика");
+            return null;
+        }
+        Double secondValue = firstValue / getCurrencyCoff(firstVault) * getCurrencyCoff(secondVault);
+        return secondValue;
+    }
 
 
     public static void initLanguage () {

@@ -3,12 +3,14 @@ package main.database;
 import java.io.IOException;
 import java.sql.*;
 
+import main.menus.Menu_JoinMenu;
 import org.bukkit.entity.Player;
 import static org.bukkit.Bukkit.getLogger;
 import java.nio.file.*;
 import static main.database.AliasDB.*;
 
 public class DbConnect {
+    public static final DbConnect getInstance = new DbConnect();
     private static String DBaddress = "jdbc:sqlite:plugins/TrDr/TrDr.db";
     public static Connection conn;
     public static Statement statmt;
@@ -21,7 +23,7 @@ public class DbConnect {
             try {
                 Files.createDirectories(workPath);
             } catch (IOException e) {
-                getLogger().info("Не удалось создать папку." + e);
+                getLogger().severe("Не удалось создать папку." + e);
             }
         }
 
@@ -31,9 +33,9 @@ public class DbConnect {
             conn = DriverManager.getConnection(DBaddress);
             getLogger().info("База данных подключена");
         } catch (SQLException e) {
-            getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
+            getLogger().severe("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error: " + e);
         } catch (ClassNotFoundException e) {
-            getLogger().info("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error: " + e);
+            getLogger().severe("Подключение к ДБ не удалось. Класс: " + e.getClass() + " / Error: " + e);
         }
         createDB();
     }
@@ -117,6 +119,14 @@ public class DbConnect {
                         ")");
                 Thread.sleep(100);
                 statmt.execute("CREATE TABLE " +
+                        "if not exists 'coefficient_exchange' " +
+                        "(" +
+                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "'name' TEXT DEFAULT 'none'," +
+                        "'coff' FLOAT DEFAULT 0" +
+                        ")");
+                Thread.sleep(100);
+                statmt.execute("CREATE TABLE " +
                         "if not exists 'relations' " +
                         "(" +
                         "'id' INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -129,7 +139,7 @@ public class DbConnect {
                 getLogger().info("Таблицы созданы или уже существуют.");
                 getLogger().info("ПРАГМА journal_mode = " + getPragma());
             } catch (SQLException | InterruptedException e) {
-                getLogger().info("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + " / Error:" + e);
+                getLogger().severe("Создание таблиц не удалось. Класс: " + e.getClass() + " / Error code: " + " / Error:" + e);
             }
         }
     }
@@ -144,7 +154,38 @@ public class DbConnect {
                // resSet.close();
                 getLogger().info("Соединения закрыты");
             } catch (SQLException e) {
-                getLogger().info("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Закрыть соединение с ДБ не удалось. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            }
+        }
+    }
+
+    public void initCurrency() {
+        String query;
+        if (conn != null) {
+            try {
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('PESO')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('EURO')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('REAL')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('YUAN')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('FRANK')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                query = String.format("INSERT INTO 'coefficient_exchange' ('name') VALUES ('RUPEE')");
+                statmt.executeUpdate(query);
+                Thread.sleep(100);
+                resSet.close();
+            } catch (SQLException e) {
+                getLogger().severe("Запрос initCurrency не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException | InterruptedException e) {
+                getLogger().severe("Запрос initCurrency не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
     }

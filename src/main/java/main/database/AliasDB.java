@@ -1,6 +1,7 @@
 package main.database;
 
 import main.main;
+import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -15,7 +16,6 @@ public class AliasDB extends DbConnect {
 
 
     public static String getUser(String nickname, String type) {
-        // ArrayList<String> user = new ArrayList<String>();
         String query = "SELECT * FROM 'users' WHERE username = '" + nickname + "'";
         if (conn != null) {
             try {
@@ -40,9 +40,9 @@ public class AliasDB extends DbConnect {
                 }
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос getUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getUser не удался. Класс: " + e.getClass() +  " / Error:" + e);
+                getLogger().severe("Запрос getUser не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
         return "";
@@ -58,7 +58,7 @@ public class AliasDB extends DbConnect {
             }
             resSet.close();
         } catch (SQLException e) {
-            getLogger().info("Запрос getPragma не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            getLogger().severe("Запрос getPragma не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         }
         return journalMode;
     }
@@ -88,9 +88,9 @@ public class AliasDB extends DbConnect {
                 }
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
         return "";
@@ -121,9 +121,9 @@ public class AliasDB extends DbConnect {
                 }
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
         return "";
@@ -137,9 +137,9 @@ public class AliasDB extends DbConnect {
                 if (String.valueOf(resSet.getString("name")) != null) return String.valueOf(resSet.getString("name"));
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
+                getLogger().severe("Запрос getTown не удался. Класс: " + e.getClass() +  " / Error:" + e);
             }
         }
         return "";
@@ -175,9 +175,9 @@ public class AliasDB extends DbConnect {
                 statmt.executeUpdate(query);
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос setUser не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос setUser не удался. Класс: " + e.getClass() + " / Error:" + e);
+                getLogger().severe("Запрос setUser не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
     }
@@ -194,9 +194,9 @@ public class AliasDB extends DbConnect {
                 statmt.executeUpdate(query);
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос setTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос setTown не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос setTown не удался. Класс: " + e.getClass() + " / Error:" + e);
+                getLogger().severe("Запрос setTown не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
     }
@@ -213,9 +213,9 @@ public class AliasDB extends DbConnect {
                 statmt.executeUpdate(query);
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
+                getLogger().severe("Запрос setCountry не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
     }
@@ -231,9 +231,9 @@ public class AliasDB extends DbConnect {
                 towns = new ArrayList<>(Arrays.asList(replace1.split(",")));
                 resSet.close();
             } catch (SQLException e) {
-                getLogger().info("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+                getLogger().severe("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
             } catch (NullPointerException e) {
-                getLogger().info("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
+                getLogger().severe("Запрос getTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
             }
         }
         return towns;
@@ -246,9 +246,27 @@ public class AliasDB extends DbConnect {
             statmt.executeUpdate(query);
             resSet.close();
         } catch (SQLException e) {
-            getLogger().info("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            getLogger().severe("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
         } catch (NullPointerException e) {
-            getLogger().info("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
+            getLogger().severe("Запрос setTowns не удался. Класс: " + e.getClass() + " / Error:" + e);
         }
+    }
+
+    public static Double getCurrencyCoff (String name) {
+        String query = "SELECT * FROM 'coefficient_exchange' WHERE  = '" + name + "'";
+        if (conn != null) {
+            try {
+                resSet = statmt.executeQuery(query);
+                if (String.valueOf(resSet.getFloat("coff")) != null) {
+                    return Double.parseDouble(String.valueOf(resSet.getFloat("coff")));
+                }
+                resSet.close();
+            } catch (SQLException e) {
+                getLogger().severe("Запрос getCurrencyCoff не удался. Класс: " + e.getClass() + " / Error code: " + e.getErrorCode() + " / Error:" + e);
+            } catch (NullPointerException e) {
+                getLogger().severe("Запрос getCurrencyCoff не удался. Класс: " + e.getClass() +  " / Error:" + e);
+            }
+        }
+        return null;
     }
 }

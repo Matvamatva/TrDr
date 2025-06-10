@@ -5,6 +5,10 @@ import main.database.AliasDB.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
+import static main.database.AliasDB.setTowns;
+
 public class Command_TestDB extends AbstractCommand {
     public Command_TestDB() {
         super("setdb");
@@ -20,6 +24,13 @@ public class Command_TestDB extends AbstractCommand {
         AliasDB.setTown("Stavropol","newtown", "Russia");
         AliasDB.setTown("Moscow","newtown","Russia");
 
+        ArrayList<String> town = new ArrayList<String>();
+        town.add("Moscow");
+        town.add("Stavropol");
+        setTowns(town, "Russia");
+        town.clear();
+        town.add("Berlin");
+        setTowns(town, "Germany");
         player.sendMessage("Дебаг-страны созданы.");
     }
 }

@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import static main.Alias.languageSwitch;
 import static main.database.AliasDB.*;
@@ -19,7 +20,7 @@ import static main.menus.Menu_JoinMenu.*;
 public class Event_InventoryInteract implements Listener {
 
     @EventHandler
-    public void inventoryInteract(InventoryClickEvent event) {
+    public void inventoryInteract(@NotNull InventoryClickEvent event) {
 
         if (event.getView().getTitle().equals(MENU_TITLE_TOWNMENU)) {
             Player player = (Player) event.getWhoClicked();
@@ -75,8 +76,8 @@ public class Event_InventoryInteract implements Listener {
 
 
             player.sendMessage(languageSwitch(country, "EN"));
-            getInstance.initTowns(languageSwitch(country, "EN"));
-            getInstance.createMenuTowns(languageSwitch(country, "EN"));
+            Menu_JoinMenu.getInstance.initTowns(languageSwitch(country, "EN"));
+            Menu_JoinMenu.getInstance.createMenuTowns(languageSwitch(country, "EN"));
 
             player.closeInventory();
             player.openInventory(townMenu);

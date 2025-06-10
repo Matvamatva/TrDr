@@ -4,6 +4,7 @@ import main.menus.Menu_JoinMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import main.Alias;
+import static main.Alias.*;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,12 @@ public class Command_DebugCommand extends AbstractCommand {
 
     @Override
     public void execute(CommandSender sender, String label, String[] args) {
+
+        Double peso = Double.valueOf(args[1]);
         Player player = (Player) sender;
+        player.sendMessage(String.valueOf(getCurrencyCoff("PESO")));
+        player.sendMessage(String.valueOf(exchange("PESO", peso, "EURO")));
 
-        ArrayList<String> town = new ArrayList<String>();
-        town.add("Moscow");
-        town.add("Stavropol");
-
-        setTowns(town, "Russia");
         player.sendMessage("yes");
     }
 }
